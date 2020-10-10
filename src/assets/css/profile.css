@@ -1,33 +1,146 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 250px 850px;
+    grid-template-columns: 382px 850px;
     /* row-gap: 10px; */
-    background-color: #F5F5F5
+    background-color: #F5F5F5;
+    height: 780px;
 }
 
 
 .boxUser {
-    background-color: #ffffff
+    background-color: #ffffff;
+    padding-left: 75px;
+    width: 100%;
 }
 
 .boxDetail {
     background-color: #F5F5F5;
-    align-self: stretch;
-    /* height: 866px; */
+    display: flex;
+    /* justify-content:  */
+    align-items: center;
+    padding: 5px;
+    /* align-self: stretch; */
+    /* height: 666px; */
     /* width: 500px; */
     /* position: relative; */
 }
 .profileDetail {
-    border: 1px solid #9B9B9B
+    border: 1px solid #9B9B9B;
+    padding-top: 50px;
 }
 .wrapperDetailUser {
     /* background-color: #FFFFFF; */
+    height: 750px;
 }
 
 .tableUser {
-    border: 1px solid #9B9B9B;
+    background: #FFFFFF;
     box-sizing: border-box;
     border-radius: 4px;
     background-color: #ffffff;
-    width: 770px;
+    width: 785px;
+    padding-top: 20px;
+    height: 540px;
+    padding: 25px
+}
+
+.form-check-input {
+    width: 15px;
+    height: 15px
+}
+
+.line {
+    border-left: 1px solid #D4D4D4;
+    height: 146px;
+}
+
+.line1 {
+    border-bottom: 1px solid #D4D4D4;
+    width: 720px;
+}
+
+/* .data .gender .form-check {
+    top: -27px;
+    left: 35px;
+    z-index: 1;
+} */
+
+.gender .vs {
+    margin-left: -30px;
+}
+
+.account-container .foto {
+    width: 110px;
+    height:110px;
+}
+
+.form-group .tanggal .dropdown button {
+    border: 1px solid #9B9B9B;
+    border-radius: 4px;
+    width: 70px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #9B9B9B;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #9B9B9B;
+    font-size: 14px;
+}
+
+.save button {
+    width: 100px;
+    height: 36px;
+    background-color: #DB3022;
+    outline: none;
+    border: none;
+}
+
+.pics .select button {
+    outline: none;
+    border: none;
+    background: #FFFFFF;
+    border: 1px solid #9B9B9B;
+    box-sizing: border-box;
+    width: 140px;
+    height: 36px;
+}
+
+.formUser {
+    display: grid;
+    grid-template-columns: 750px;
+}
+
+.formUser form {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+}
+
+.form-group .date .dropdown button {
+    border: 1px solid #9B9B9B;
+    border-radius: 4px;
+    width: 90px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #9B9B9B;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #9B9B9B;
+}
+
+.customer {
+    position: relative;
+    top: -515px;
+    left: 200px;
+    transform: translate(50px, 50px)
+}
+.line {
+    position: relative;
+    top: -380px;
+    left: 410px;
+    margin-right: 0 !important;
+    transform: translate(50px, 50px);
+}
+
+body {
+    overflow-x: hidden;
 }

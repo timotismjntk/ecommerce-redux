@@ -1,0 +1,9 @@
+.myOrder a{
+    font-weight: 500;
+    color: #9B9B9B
+}
+
+.myOrder .text1{
+    color: #DB3022;
+    border-bottom: 4px solid #DB3022;
+}

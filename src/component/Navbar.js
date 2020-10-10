@@ -64,34 +64,36 @@ const NavbarHooks = (props) => {
     )
 
     return (
-        <Container>
-            <Navbar dark expand="md" className="sticky-top d-flex align-items-center w-100"> 
-            <NavbarBrand><img src={Brand} alt="logo" /></NavbarBrand>
-            <NavbarToggler className='buttonToggler' onClick={() => {setOpenNav(!openNav)}}/>
-            <Collapse isOpen={openNav} navbar className='joinNav'>
-                <Nav className="customNav d-flex align-items-center justify-content-center ml-5" navbar>
-                    <NavItem className="d-flex justify-content-between">
-                        <Form className="form d-flex flex-row align-items-center">
-                            <div className="search-bar">
-                                <Input type="text" className="form-control" placeholder="Search" />
+        <Container fluid={true} className='sticky-top' style={{backgroundColor: 'white'}}>
+            <Container>
+                <Navbar dark expand="md" className="sticky-top d-flex align-items-center w-100"> 
+                <NavbarBrand><img src={Brand} alt="logo" /></NavbarBrand>
+                <NavbarToggler className='buttonToggler' onClick={() => {setOpenNav(!openNav)}}/>
+                <Collapse isOpen={openNav} navbar className='joinNav'>
+                    <Nav className="customNav d-flex align-items-center justify-content-center ml-5" navbar>
+                        <NavItem className="d-flex justify-content-between">
+                            <Form className="form d-flex flex-row align-items-center">
+                                <div className="search-bar">
+                                    <Input type="text" className="form-control" placeholder="Search" />
+                                </div>
+                                <a href='/#'><img className="search-icon w-100" src={Search} alt="search" /></a>
+                                <Button type="button" id="filter" className="btn btn-outline-dark filter"><img className="filter-icon" src={Filter} alt="filter"/></Button>
+                            </Form>
+                        </NavItem>
+                    </Nav>
+                    <Nav className="ml-auto anotherCustomNav" navbar>
+                        <NavItem className='mr-auto cust'>
+                            <div className="d-flex align-items-center justify-content-center">  
+                                <a href='/#' className="cart ml-auto mr-4">
+                                    <img className="cart-icon" src={Cart} alt="cart" />
+                                </a>
+                                {localStorage.customertoken ? userLink : loginLink}
                             </div>
-                            <a href='/#'><img className="search-icon w-100" src={Search} alt="search" /></a>
-                            <Button type="button" id="filter" className="btn btn-outline-dark filter"><img className="filter-icon" src={Filter} alt="filter"/></Button>
-                        </Form>
-                    </NavItem>
-                </Nav>
-                <Nav className="ml-auto anotherCustomNav" navbar>
-                    <NavItem className='mr-auto cust'>
-                        <div className="d-flex align-items-center justify-content-center">  
-                            <a href='/#' className="cart ml-auto mr-4">
-                                <img className="cart-icon" src={Cart} alt="cart" />
-                            </a>
-                            {localStorage.customertoken ? userLink : loginLink}
-                        </div>
-                    </NavItem>
-                </Nav>
-            </Collapse>
-            </Navbar>
+                        </NavItem>
+                    </Nav>
+                </Collapse>
+                </Navbar>
+            </Container>
         </Container>
     )
 }

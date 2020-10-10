@@ -1,0 +1,60 @@
+.title {
+    font-size: 20px;
+}
+
+.addressBtn {
+    border: 2px dashed #9B9B9B !important;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #FFFFFF; 
+    height: 86px; 
+    width: 620px;
+}
+
+.addressBtn:hover {
+    background-color: #FFFFFF;
+}
+
+.addressBtn:active {
+    background-color: #FFFFFF !important;
+}
+
+.addressText:hover {
+    text-decoration: none !important;
+}
+.addressText .btn-link {
+    color: #ffffff
+}
+.address {
+    background-color: #FFFFFF;
+    border: 1px solid #DB3022;
+    /* box-sizing: border-box; */
+    border-radius: 4px;
+    width: 620px;
+    height: 170px;
+    padding: 22px;
+}
+
+.address .recipientName {
+    font-weight: 12px
+}
+.address .recipientAddress {
+    font-weight: 8px
+}
+
+.wrapperDetailUser .address button {
+    background-color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    color: #DB3022;
+    outline: none;
+    border: none;
+    position: relative;
+    left: -12px
+}
+
+.btnAddress .btnAddress1{
+    border: 1px solid #9B9B9B;
+    box-sizing: border-box;
+    border-radius: 24px;
+}

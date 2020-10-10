@@ -32,6 +32,7 @@ export default class App extends Component {
             <PrivateRoute path='/profile'>
               <Profile />
             </PrivateRoute>
+            {/* <Profile /> */}
             <Route path='/about' render={()=><About />} />
             <Route path='/episode' render={()=><Episode />} />
           </Switch>
