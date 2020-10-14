@@ -12,12 +12,13 @@ import Profile from '../assets/images/profile.svg'
 
 import { Container, Nav, Collapse, Form, Navbar,
     NavbarToggler, NavbarBrand,Button, Input,
-    NavItem
+    NavItem, UncontrolledPopover, PopoverHeader, PopoverBody
  } from 'reactstrap';
 import '../assets/css/style.css';
 
 import cartAction from '../redux/actions/cart'
 import searchAction from '../redux/actions/search'
+import authAction from '../redux/actions/auth'
 
 const NavbarHooks = (props) => {
 
@@ -27,6 +28,7 @@ const NavbarHooks = (props) => {
 
     const {data} = profileState
     const token = useSelector(state=>state.auth.token)
+    const {isLogin} = useSelector(state => state.auth)
     
     const [openNav, setOpenNav] = useState(false);
     const [search, setSearch] = useState([]);
@@ -39,8 +41,17 @@ const NavbarHooks = (props) => {
 
 
     useEffect(()=>{
-        localStorage.setItem('customertoken', token)
+        // localStorage.getItem('token')
+        // alert(localStorage.token)
     }, [token])
+
+    const logOut = () =>{
+        if(isLogin) {
+            dispatch(authAction.logout())
+            alert('Logout succesfully')
+            // props.history.push('/')
+        }
+    }
     
     const loginLink = (
         <ul className="navbar-nav btn-user ml-auto">
@@ -72,9 +83,14 @@ const NavbarHooks = (props) => {
                     <img className="cart-icon mr-4" src={Mail} alt="mail" />
                 </a>
             </li>
-            <Link to='/user/profile' className="profile cart ml-auto mr-4">
+            <Button className="profile cart ml-auto mr-4" outline color='light' id="UncontrolledPopover" type="button">
                 <img className="cart-icon rounded-circle" src={data.profile_picture} style={{width: '50px', height: 'auto', objectFit: 'contain'}} alt="profile" />
-            </Link>
+            </Button>
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader><Link to='/user/profile' className="text-secondary text-center profile cart ml-auto mr-4" id="UncontrolledPopover" type="button">Profile</Link>
+                </PopoverHeader>
+                <PopoverBody><Button onClick={logOut} outline color='light' className="text-secondary">Logout</Button></PopoverBody>
+            </UncontrolledPopover>
             {/* <li className="nav-item">
                 <a href='/user/cart' className="profile mr-4">
                     <img className="cart-icon" src={Profile} alt="profile" />
@@ -114,7 +130,7 @@ const NavbarHooks = (props) => {
                     <Link to='/user/cart' className="cart ml-auto mr-4">
                         <img className="cart-icon" src={Cart} alt="cart" />
                     </Link>
-                            {localStorage.customertoken ? userLink : loginLink}
+                            {localStorage.token ? userLink : loginLink}
                             </div>
                         </NavItem>
                     </Nav>

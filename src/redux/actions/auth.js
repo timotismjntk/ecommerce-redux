@@ -11,5 +11,9 @@ export default {
   }),
   clearMessage: ()=>({
     type: 'CLEAR_MESSAGE'
+  }),
+  setToken: (payload)=>({
+    type: 'SET_TOKEN',
+    payload
   })
 }

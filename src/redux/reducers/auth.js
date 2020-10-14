@@ -23,6 +23,7 @@ export default (state=initialState, action) => {
     }
     case 'AUTH_USER_FULFILLED':{
       console.log(action.payload.data.message)
+      localStorage.setItem('token', action.payload.data.message)
       return {
         ...state,
         token: action.payload.data.message,
@@ -31,7 +32,15 @@ export default (state=initialState, action) => {
         alertMsg: 'Successfully login'
       }
     }
+    case 'SET_TOKEN':{
+      return{
+        ...state,
+        token: action.payload,
+        isLogin: true
+      }
+    }
     case 'LOGOUT_USER': {
+      localStorage.removeItem('token')
       return {
         isLogin: false,
         token: '',
