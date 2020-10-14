@@ -73,7 +73,7 @@ const NavbarHooks = (props) => {
                 </a>
             </li>
             <Link to='/user/profile' className="profile cart ml-auto mr-4">
-                <img className="cart-icon" src={data.profile_picture} alt="profile" />
+                <img className="cart-icon rounded-circle" src={data.profile_picture} style={{width: '50px', height: 'auto', objectFit: 'contain'}} alt="profile" />
             </Link>
             {/* <li className="nav-item">
                 <a href='/user/cart' className="profile mr-4">

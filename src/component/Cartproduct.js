@@ -27,6 +27,13 @@ export default function Cart(props) {
     const [product_id, setProductId] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
     const [isDelete, setDelete] = useState(false)
+    const [isChecked, setIsChecked] = useState(false)
+
+    useEffect(()=>{
+        if (isChecked === false) {
+            setTotalPrice(0)
+        }
+    }, [isChecked])
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -39,10 +46,6 @@ export default function Cart(props) {
     
     const decreaseAmountProductCart = (id) => {
         setCartId(id)
-        if(qty < 1) {
-            // alert('berhasil dihapus')
-            // dispatch(cartAction.deleteCart(token, cartId))
-        }
     }
 
     const quantityState = useSelector(state=>state.cart)
@@ -74,8 +77,19 @@ export default function Cart(props) {
                 quantity: qty
             }
             dispatch(cartAction.patchQuantityCart(token, data, {user_id: cartId}, product_id))
+            setTimeout(() =>{
+                dispatch(cartAction.getCart(token))               
+            })
+        } 
+        if (totalPrice) {
+            alert(totalPrice)
         }
-    }, [dispatch, product_id, qty, cartId, token])
+        // else if (isSelected) {
+        //     setTimeout(() =>{
+        //         dispatch(cartAction.getCart(token))               
+        //     },100)
+        // }
+    }, [dispatch, product_id, isSelected, qty, cartId, token, totalPrice])
 
     return (
         <Container>
@@ -107,7 +121,7 @@ export default function Cart(props) {
                     return (
                 <div className="listOne d-flex justify-content-between flex-row align-items-center">
                     <div className="d-flex align-items-center position-relative" style={{right: '-28px'}}>
-                        <Input type="checkbox" onClick={() =>{setCartId(items.id); setTotalPrice(items.price); dispatch(cartAction.selectCart())}}></Input>
+                        <Input type="checkbox" onClick={() =>{setCartId(items.id); setTotalPrice(items.price); setIsChecked(!isChecked); dispatch(cartAction.selectCart())}}></Input>
                     </div>
                     <div className="someOne d-flex align-items-center position-relative" style={{right: '-50px' }}>
                         <img className="jas" style={{width: '70px', height: '69px', objectFit: 'contain'}} src={items.url} alt='images' />

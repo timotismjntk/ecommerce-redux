@@ -145,11 +145,18 @@
     overflow-x: hidden;
 } */
 
-.customer .avatar {
+.customer .pics .user .picts .avatar {
     width: 150px;
-    height: auto;
+    height: 150px;
+    object-fit: contain;
+    overflow: hidden;
+    position: relative;
+    border-radius: 75px;
 }
-
-.customer .avatar img {
+/* 
+.customer .pics .user .picts .avatar img {
     width: 100%;
-}
+    position: absolute;
+    clip: rect(0px, 50px, 50px, 0px);
+    border-radius: 75px;
+} */

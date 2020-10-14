@@ -26,11 +26,14 @@ export default function Profile(props) {
   const [shipping, setShipping] = useState(false)
   const [order, setOrder] = useState(false)
 
-  const {data} = user
+  const {data, updated} = user
 
   useEffect(()=>{
     dispatch(profileAction.getProfile(token))
-  },[dispatch, token])
+    if (updated) {
+      dispatch(profileAction.getProfile(token))
+    }
+  },[dispatch, token, updated])
   return (
     <div style={{backgroundColor: 'white'}}>
         <Navbar />
@@ -40,7 +43,7 @@ export default function Profile(props) {
                 {/* <div className="col col-3 pt-4 mt-5"> */}
               <div className="d-flex flex-row">
                 <div className="mr-3">
-                    <a href='/login'><img src={data.profile_picture} alt="profile" /></a>
+                    <a href='/login'><img src={data.profile_picture} style={{width: '100px'}} alt="profile" /></a>
                 </div>
                 <div className="d-flex flex-column">
                     <div className="name">
