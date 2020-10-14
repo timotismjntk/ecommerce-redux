@@ -1,9 +1,21 @@
-import React from 'react'
-import { Container, Input, Form, Button } from 'reactstrap'
+import React, { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import { Container, Alert, Button, Label, Form, Input } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import profileAction from '../redux/actions/profile'
 import userImg from '../assets/images/profil1.svg'
 
 
-export default function CustomerProfile() {
+export default function CustomerProfile(props) {
+    const profileState =  useSelector(state=>state.profile)
+
+    const {data} = profileState
+
+    const [name, setName] = useState(data.name)
+    const [email, setEmail] = useState(data.email)
+    const [phone_number, setPhone] = useState(data.phone_number)
+    const [gender, setGender] = useState(data.gender)
+    const [image, setImage] = useState(data.profile_picture)
     return (
         <div className="wrapperDetailUser d-flex flex-row mt-5">
             <div>
@@ -22,7 +34,7 @@ export default function CustomerProfile() {
                     <div className='d-flex align-items-center w-75'>
                         <span className="text-secondary col-5 text-right">Name</span>
                         <div className='col-9'>
-                        <Input className="input-name w-75" type="text" name="name" placeholder="Name" />
+                        <Input onChange={(e) => {setName(e.target.value)}} className="input-name w-75" type="text" name="name" value={name} placeholder="Name" />
                         </div>
                     </div>
                     </div>
@@ -31,16 +43,16 @@ export default function CustomerProfile() {
                     <div className="d-flex align-items-center w-75">
                         <span className="text-secondary col-5 text-right">Email</span>
                         <div className="col-9">
-                        <Input className="input-email w-75" type="email" name="email"   placeholder="Email" />
+                        <Input onChange={(e) => {setEmail(e.target.value)}} className="input-email w-75" type="email" name="email" value={email}   placeholder="Email" />
                         </div>
                     </div>
                     </div>
 
                     <div className="phoneNumber form-group d-flex align-items-center row w-100">
                     <div className="d-flex align-items-center w-75">
-                        <span className="text-secondary col-5 text-right">Phone Number</span>
+                        <span className="text-secondary col-5 text-right">Phone</span>
                         <div className="col-9 w-100 d-flex flex-center">
-                        <Input className="input-number w-75" type="text" name="phone-number" placeholder="Phone Number" />
+                        <Input onChange={(e) => {setPhone(e.target.value)}} className="input-number w-75" type="phone" name="phone_number" value={phone_number} placeholder="Phone Number" />
                         </div>
                     </div>
                     </div>
@@ -96,11 +108,14 @@ export default function CustomerProfile() {
             </div>
             <div class="customer">
                 <div class="pics d-flex flex-column align-items-center">
-                <div class="foto">
-                    <img src={userImg} style={{width: '100px'}} alt="profil" />
+                <div class="foto avatar">
+                    <img src={image!==''?image : ''} className='rounded-circle' style={{width: '100px'}} alt="profil" />
                 </div>
                 <div class="select pt-4">
-                    <button class="btn-outline-secondary rounded-pill">Select image</button>
+                    <Label className="btn btn-outline-secondary rounded-pill">
+                        <span>Select File</span>
+                        <Input style={{display: 'none'}} type='file' accept='.jpg,.png' />
+                    </Label>
                 </div>
                 </div>
             </div>   

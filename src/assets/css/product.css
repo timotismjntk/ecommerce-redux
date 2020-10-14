@@ -1,0 +1,46 @@
+.total-product .btn-kurang {
+    background-color:#D4D4D4 !important
+}
+
+.title .total-product .btn-jumlah {
+    margin-top: -10px
+}
+
+/* .custom-radio .custom-control-label::before {
+    width: 36px;
+    height: 36px;
+}
+.custom-radio2 .custom-control-label::before {
+    width: 36px;
+    height: 36px;
+}
+.custom-radio3 .custom-control-label::before {
+    width: 36px;
+    height: 36px;
+}
+.custom-radio4 .custom-control-label::before {
+    width: 36px;
+    height: 36px;
+} */
+
+/* .custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-color: red
+}
+.custom-radio .custom-control-input:checked~.custom-control-label::before {
+    background-color: red
+} */
+
+.custom-radio .custom-control-input{
+    width: 36px !important;
+    height: 200px;
+}
+
+
+.rata-rata{
+    font-weight: 600;
+}
+
+.rating-bar .progress-bar {
+    height: 10px;
+    width: 100%;
+}

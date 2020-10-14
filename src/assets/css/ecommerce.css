@@ -383,48 +383,7 @@
     font-size: 12px;
 }
 
-.item1 {
-    background-color: #CC0B04;
-    padding: 35px;
-    border-radius: 10px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    width: 206px;
-    height: 220px;
-}
-.item2 {
-    background-color: #1C3391;
-    padding: 35px;
-    border-radius: 10px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    width: 206px;
-    height: 220px;
-}
-.item3 {
-    background-color: #F67B02;
-    padding: 35px;
-    border-radius: 10px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    width: 206px;
-    height: 220px;
-}
-.item4 {
-    background-color: #E31F51;
-    padding: 35px;
-    border-radius: 10px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    width: 206px;
-    height: 220px;
-}
-.item5 {
-    background-color: #57CD9E;
+.item {
     padding: 35px;
     border-radius: 10px;
     color: white;
@@ -434,8 +393,9 @@
     height: 220px;
 }
 .btn-arrow3 {
-    top: 70px;
-    right: -50px;
+    transform: translate(-50px, 50px);
+    top: 480px;
+    right: 25px;
 }
 
 .slider-container-dua .caption2 {
@@ -560,3 +520,12 @@ Card .rating .star img {
         font-size: 18px;
     }
   }
+
+
+.newproductwrapper {
+    width: 208px;
+    display: grid;
+    grid-template-columns: repeat(5, 
+    208px);
+    grid-gap: 200px !important;
+}

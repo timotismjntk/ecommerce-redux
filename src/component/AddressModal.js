@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Form, Label, Button, Input, FormGroup  } from 'reactstrap'
 
 export default function AddressModal(props) {
-    let [modalOpen, setModalOpen] = useState(true);
+    const {
+        isOpen,
+        isClose
+    } = props
+    // useEffect(()=>{
+    //     alert(open)
+    // }, [open])
+    let [modalOpen, setModalOpen] = useState(isOpen);
     let [place, setPlace] = useState('');
     let [recipient_name, setRecipientName] = useState('');
     let [recipient_number, setRecipientNumber] = useState('');
@@ -12,12 +19,20 @@ export default function AddressModal(props) {
     let [isPrimary, setIsPrimary] = useState(0);
     const [modal, setModal] = useState(false);
 
-    const toggle = () => setModalOpen(!modalOpen);
+
+    useEffect(() => {
+        if (isOpen === true){
+            setModalOpen(isOpen)
+        }
+        // alert(isOpen)
+    }, [isOpen, isClose]);
+
+    
 
     return (
         <React.Fragment >
             <Modal isOpen={modalOpen} className="modal-dialog modal-lg">
-                <ModalHeader toggle={toggle} style={{borderBottom: 'none'}}>
+                <ModalHeader style={{borderBottom: 'none'}}>
                 </ModalHeader>
                 <div className="d-flex align-items-center justify-content-center flex-center">
                     <h4 className="font-weight-bold">Add new address</h4>
@@ -76,7 +91,7 @@ export default function AddressModal(props) {
                 </ModalBody>
                 <ModalFooter className="btnAddress">
                     {/* <Button onClick={} className="d-flex ml-auto btn-light">Close</Button> */}
-                    <Button className="btn-secondary button rounded-pill w-25 btnAddress1 text-secondary" color={'light'}>
+                    <Button onClick={()=>{setModalOpen(isClose)}} className="btn-secondary button rounded-pill w-25 btnAddress1 text-secondary" color={'light'}>
                         Cancel
                     </Button>
                     <Button type='submit' className='button rounded-pill w-25 btnAddress2' style={{backgroundColor: '#DB3022'}}>Save

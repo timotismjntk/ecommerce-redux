@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
-import {  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Container } from 'reactstrap'
-import {connect} from 'react-redux'
+import React from 'react'
+// import {Link} from 'react-router-dom'
+import { Container } from 'reactstrap'
+// import {connect} from 'react-redux'
 import Navbar from '../component/Navbar'
+import Newproduct from '../component/NewProduct'
+import PopularProduct from '../component/PopularProduct'
+import CategoryProduct from '../component/CategoryProduct'
 
-import authAction from '../redux/actions/auth'
+// import authAction from '../redux/actions/auth'
+
 
 import '../assets/css/ecommerce.css';
 
@@ -43,35 +46,23 @@ const Home = (props) => {
               <h3 className="font-weight-bold">Category</h3>
               <span className="detail">What are you currently looking for</span>
           </div>
-
-          <div className="slider-container-dua mt-4 d-flex justify-content-between align-items-center position-relative">
-              <div className="item1 column position-relative d-flex justify-content-center align-items-center">
-              <img src={require('../assets/images/baju.png')} className="img1 rounded" alt="gambar" />
-              <span className="position-absolute caption2 font-weight-bold">T-Shirt</span>
-              </div>
-              <div className="item2 column d-flex justify-content-center align-items-center">
-                  <img src={require('../assets/images/celana-hijau.png')} className="rounded" alt="gambar"/>
-                  <span className="position-absolute caption2 font-weight-bold">Shorts</span>
-              </div>
-              <div className="item3 column d-flex justify-content-center align-items-center">
-                  <img src={require('../assets/images/jaket.png')} className="rounded" alt="gambar"/>
-                  <span className="position-absolute caption2 font-weight-bold">Jacket</span>
-              </div>
-              <div className="item4 column d-flex justify-content-center align-items-center">
-                  <img src={require('../assets/images/celana-panjang.png')} className="img4 shorts rounded" alt="gambar" />
-                  <span className="position-absolute caption2 font-weight-bold">Pants</span>
-              </div>
-              <div className="item5 column d-flex justify-content-center align-items-center">
-                  <img src={require('../assets/images/sepatu.png')} className="img4 rounded" alt="gambar" />
-                  <button className="btn btn-default position-absolute rounded-circle btn-arrow3"><img src={require('../assets/images/right.png')} alt="right" /></button>
-                  <span className="position-absolute caption2 font-weight-bold">Shoes</span>
-              </div>
+          <div className='slider-container-dua mt-4 d-flex flex-row' style={{overflowX:'scroll'}}>
+            <CategoryProduct />
           </div>
+          <button className="btn btn-default position-absolute rounded-circle btn-arrow3 bg-yellow"><img src={require('../assets/images/right.png')} alt="right" /></button>
 
-          <div className="category mt-5">
+          <div className="category mt-5 mb-4">
               <h3 className="font-weight-bold">New</h3>
               <span className="detail">What are you currently looking for</span>
           </div>
+          <Newproduct />
+
+          <div className="category mt-5 mb-4">
+              <h2 className="font-weight-bold">Popular</h2>
+              <span className="detail">Find clothes that are trending recently</span>
+          </div>
+
+          <PopularProduct />      
         </Container>
       </React.Fragment>
     )

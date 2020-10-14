@@ -13,6 +13,9 @@ import Counter from './pages/Counter'
 import About from './pages/About'
 import Episode from './pages/Episode'
 import Profile from './pages/Profile'
+import Product from './pages/Product'
+import Cart from './pages/Cart'
+import SearchProduct from './pages/SearchProduct'
 
 //Import store
 import store from './redux/store'
@@ -29,12 +32,18 @@ export default class App extends Component {
             <PrivateRoute path='/counter'>
               <Counter />
             </PrivateRoute>
-            <PrivateRoute path='/profile'>
+            <PrivateRoute path='/user/profile'>
               <Profile />
             </PrivateRoute>
+            <PrivateRoute path='/user/cart'>
+              <Cart />
+            </PrivateRoute>
             {/* <Profile /> */}
+            <Route path='/product/detail' render={(props)=><Product {...props}/>} />
+            <Route path='/search/product' render={(props)=><SearchProduct {...props}/>} />
             <Route path='/about' render={()=><About />} />
             <Route path='/episode' render={()=><Episode />} />
+            {/* <Route path='/user/cart' render={()=><Cart />} /> */}
           </Switch>
         </BrowserRouter>
       </Provider>

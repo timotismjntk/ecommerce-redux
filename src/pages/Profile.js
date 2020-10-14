@@ -26,6 +26,7 @@ export default function Profile(props) {
   const [shipping, setShipping] = useState(false)
   const [order, setOrder] = useState(false)
 
+  const {data} = user
 
   useEffect(()=>{
     dispatch(profileAction.getProfile(token))
@@ -39,11 +40,11 @@ export default function Profile(props) {
                 {/* <div className="col col-3 pt-4 mt-5"> */}
               <div className="d-flex flex-row">
                 <div className="mr-3">
-                    <a href='/login'><img src={userImg} alt="profile" /></a>
+                    <a href='/login'><img src={data.profile_picture} alt="profile" /></a>
                 </div>
                 <div className="d-flex flex-column">
                     <div className="name">
-                        <span className="font-weight-bold">Johanes Mikael</span>
+                        <span className="font-weight-bold">{data.name}</span>
                     </div>
                     <div className="edit d-flex align-items-center">
                             <div className="icon mr-2">
@@ -92,7 +93,7 @@ export default function Profile(props) {
           </div>
         
           {account ? <div className="boxDetail" style={{marginLeft: '-9px'}}>
-            <CustomerProfile />
+            <CustomerProfile name={data.name} email={data.email} phone={data.phone_number}/>
           </div> : null}
 
             {shipping ? <CustomerAddress /> : null}
@@ -102,9 +103,3 @@ export default function Profile(props) {
     </div>
   )
 }
-
-
-
-/*
-
-              */

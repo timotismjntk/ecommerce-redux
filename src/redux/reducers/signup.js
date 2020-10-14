@@ -27,6 +27,7 @@ const initialState = {
       case 'AUTH_USER_FULFILLED':{
         return {
           ...state,
+          isError: true,
           isLoading: false,
           alertMsg: 'Successfully to signup'
         }

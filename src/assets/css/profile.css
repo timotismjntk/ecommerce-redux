@@ -141,6 +141,15 @@
     transform: translate(50px, 50px);
 }
 
-body {
+/* body {
     overflow-x: hidden;
+} */
+
+.customer .avatar {
+    width: 150px;
+    height: auto;
+}
+
+.customer .avatar img {
+    width: 100%;
 }

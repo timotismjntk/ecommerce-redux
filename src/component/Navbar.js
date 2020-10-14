@@ -16,10 +16,27 @@ import { Container, Nav, Collapse, Form, Navbar,
  } from 'reactstrap';
 import '../assets/css/style.css';
 
+import cartAction from '../redux/actions/cart'
+import searchAction from '../redux/actions/search'
+
 const NavbarHooks = (props) => {
 
+    const dispatch = useDispatch()
+
+    const profileState =  useSelector(state=>state.profile)
+
+    const {data} = profileState
     const token = useSelector(state=>state.auth.token)
-    const [openNav, setOpenNav] = useState(false)
+    
+    const [openNav, setOpenNav] = useState(false);
+    const [search, setSearch] = useState([]);
+    const [tempOrderBy, setTempOrderBy] = useState('ASC');
+    const [tempSortBy, setTempSortBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('SortBy');
+    let [sortBy, setSortBy] = useState('Ascending');
+    const [limit, setLimit] = useState(10);
+    const hasil = search
+
 
     useEffect(()=>{
         localStorage.setItem('customertoken', token)
@@ -29,7 +46,7 @@ const NavbarHooks = (props) => {
         <ul className="navbar-nav btn-user ml-auto">
             <li className="nav-item">
                 <button className="btn btn-primary rounded-pill mr-2 p-0 login">
-                    <Link to="/user/login" className="nav-link text-white p-0">Login</Link>
+                    <Link to="/login" className="nav-link text-white p-0">Login</Link>
                 </button>
             </li>
             <li className="nav-item btn-user">
@@ -51,15 +68,18 @@ const NavbarHooks = (props) => {
                 </a>
             </li>
             <li className="nav-item">
-                <a href='/#' className="mail">
+                <a href='/user/cart' className="mail">
                     <img className="cart-icon mr-4" src={Mail} alt="mail" />
                 </a>
             </li>
-            <li className="nav-item">
-                <a href='/#' className="profile mr-4">
+            <Link to='/user/profile' className="profile cart ml-auto mr-4">
+                <img className="cart-icon" src={data.profile_picture} alt="profile" />
+            </Link>
+            {/* <li className="nav-item">
+                <a href='/user/cart' className="profile mr-4">
                     <img className="cart-icon" src={Profile} alt="profile" />
                 </a>
-            </li>
+            </li> */}
         </ul>
     )
 
@@ -67,27 +87,34 @@ const NavbarHooks = (props) => {
         <Container fluid={true} className='sticky-top' style={{backgroundColor: 'white'}}>
             <Container>
                 <Navbar dark expand="md" className="sticky-top d-flex align-items-center w-100"> 
-                <NavbarBrand><img src={Brand} alt="logo" /></NavbarBrand>
+                <NavbarBrand>
+                    <Link to="/" className="nav-link text-white p-0">Login<img src={Brand} alt="logo" /></Link>
+                </NavbarBrand>
                 <NavbarToggler className='buttonToggler' onClick={() => {setOpenNav(!openNav)}}/>
                 <Collapse isOpen={openNav} navbar className='joinNav'>
                     <Nav className="customNav d-flex align-items-center justify-content-center ml-5" navbar>
                         <NavItem className="d-flex justify-content-between">
-                            <Form className="form d-flex flex-row align-items-center">
+                            <Form onSubmit={()=>{dispatch(searchAction.searchProduct({search: hasil}))}} className="form d-flex flex-row align-items-center">
                                 <div className="search-bar">
-                                    <Input type="text" className="form-control" placeholder="Search" />
+                                    <Input onChange={(e) => {
+                                    setSearch(e.target.value)}} autoComplete='off' style={{width: '430px'}} className="form-control" placeholder="Search" value={search} />
+                                    {search.length !== 0 ? <Button onClick={()=>{setSearch([]); setSortBy([])}} className="iconSearch" close /> : null}
+                                    
                                 </div>
-                                <a href='/#'><img className="search-icon w-100" src={Search} alt="search" /></a>
-                                <Button type="button" id="filter" className="btn btn-outline-dark filter"><img className="filter-icon" src={Filter} alt="filter"/></Button>
+                                <Link to={`/search/product?search=${search}`} onClick={()=>{dispatch(searchAction.searchProduct({search: hasil}))}} className="cart ml-auto mr-4">
+                                <img src={Search} alt='search' />
+                                </Link>
+                                <Button type="button" id="filter" style={{marginLeft: '20px'}} className="btn btn-outline-dark filter"><img className="filter-icon" src={Filter} alt="filter"/></Button>
                             </Form>
                         </NavItem>
                     </Nav>
                     <Nav className="ml-auto anotherCustomNav" navbar>
                         <NavItem className='mr-auto cust'>
-                            <div className="d-flex align-items-center justify-content-center">  
-                                <a href='/#' className="cart ml-auto mr-4">
-                                    <img className="cart-icon" src={Cart} alt="cart" />
-                                </a>
-                                {localStorage.customertoken ? userLink : loginLink}
+                            <div className="d-flex align-items-center justify-content-center"> 
+                    <Link to='/user/cart' className="cart ml-auto mr-4">
+                        <img className="cart-icon" src={Cart} alt="cart" />
+                    </Link>
+                            {localStorage.customertoken ? userLink : loginLink}
                             </div>
                         </NavItem>
                     </Nav>

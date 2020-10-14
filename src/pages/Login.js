@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { Container, Alert, Button, Form, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import loginAction from '../redux/actions/auth'
+import profileAction from '../redux/actions/profile'
 
 //Import component navbar
 
@@ -14,6 +15,7 @@ export default function Login(props) {
     const dispatch = useDispatch()
 
     const LoginState = useSelector(state=>state.auth)
+    const token = useSelector(state=>state.auth.token)
 
     const displayHandler = () => {
         setIsDisplay(false)
@@ -45,10 +47,15 @@ export default function Login(props) {
   } = LoginState
 
     useEffect(()=>{
+        console.log(props.history)
       if(isLogin) {
-        props.history.push('/profile')
+        dispatch(profileAction.getProfile(token))
+        setTimeout(()=>{
+            props.history.push('/user/profile')
+        }, 300)
+        // props.history.push('/')
       }
-    }, [isLogin, props])
+    }, [isLogin, props, dispatch, token])
     
     return (
         <React.Fragment>
@@ -76,7 +83,7 @@ export default function Login(props) {
                             <Input autoComplete='off' onChange={(e)=>{setPassword(e.target.value)}} name='password' value={password} type='password' id='password' placeholder="Password" required/>
                         </div>
                         <div className="button">
-                            <Button type='submit' className='mt-2 button w-100 rounded-pill' style={{backgroundColor: '#DB3022'}}>Register</Button>
+                        <Button type='submit' className='mt-2 button w-100 rounded-pill' style={{backgroundColor: '#DB3022'}}>Login</Button>
                         </div>
                     </div>
                 </Form>

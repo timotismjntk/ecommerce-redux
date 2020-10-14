@@ -5,42 +5,42 @@ import ProductCard from '../component/Card'
 import {Container, Row, Col} from 'reactstrap'
 import { useHistory } from 'react-router-dom'
 
-import newProductAction from '../redux/actions/newproduct'
-
 import getDetailProductIdAction from '../redux/actions/detailProduct'
 
-export default function NewProduct(props) {
+import popularProductAction from '../redux/actions/popular'
 
-
+export default function PopularProduct(props) {
+    
     const dispatch = useDispatch()
     const history = useHistory()
     
     const detailProductState = useSelector(state=>state.detailproduct)
     const {isTrue, detailId} = detailProductState
-    
+
     const [id, setId] = useState(0)
+
+    // useEffect(()=>{
+        useEffect(()=>{
+            // alert(id)
+            if (isTrue && id) {
+                history.push(`/product/detail?productId=${id}`)
+            }
+        }, [isTrue, history, id])
     
-    useEffect(()=>{
-        // alert(id)
-        if (isTrue && id) {
-            history.push(`/product/detail?productId=${id}`)
-        }
-    }, [isTrue, history, id])
-
+        
+        useEffect(()=>{
+            dispatch(popularProductAction.getPopularProduct())
+        }, [dispatch])
     
-    useEffect(()=>{
-        dispatch(newProductAction.getNewProduct())
-    }, [dispatch])
-
-
-    useEffect(()=>{
-        dispatch(getDetailProductIdAction.getDetailProducts(id))
-    }, [id, dispatch])
-
-
-    const productState = useSelector(state=>state.newproduct)
-
-    const {data} = productState
+    
+        useEffect(()=>{
+            dispatch(getDetailProductIdAction.getDetailProducts(id))
+        }, [id, dispatch])
+    
+    
+        const productState = useSelector(state=>state.popularproduct)
+    
+        const {data} = productState
     // console.log(data)
     return (
         <Container fluid>
