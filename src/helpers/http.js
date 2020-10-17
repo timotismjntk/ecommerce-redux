@@ -6,7 +6,8 @@ const http = (token=false)=>{
   return axios.create({
     baseURL: REACT_APP_BACKEND_URL,
     headers: {
-      'Authorization': token?`Bearer ${token}`:undefined
+      'Authorization': token?`Bearer ${token}`:undefined,
+      // 'content-type': 'multipart/form-data'
     }
   })
 }

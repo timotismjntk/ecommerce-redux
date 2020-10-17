@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Form, Label, Button, Input, FormGroup  } from 'reactstrap'
-
+import addressAction from '../redux/actions/address'
 export default function AddressModal(props) {
     const {
         isOpen,
@@ -17,8 +18,9 @@ export default function AddressModal(props) {
     let [postal_code, setPostalCode] = useState('');
     let [city, setCity] = useState('');
     let [isPrimary, setIsPrimary] = useState(0);
-    const [modal, setModal] = useState(false);
 
+    const dispatch = useDispatch()
+    const token = useSelector(state=>state.auth.token)
 
     useEffect(() => {
         if (isOpen === true){
@@ -27,6 +29,20 @@ export default function AddressModal(props) {
         // alert(isOpen)
     }, [isOpen, isClose]);
 
+    const update = (e) => {
+        // alert(e)
+            let data = {
+            place,
+            recipient_name,
+            recipient_number,
+            address_name,
+            postal_code,
+            city,
+            isPrimary
+            }
+            dispatch(addressAction.createAddress(token, data))
+            setModalOpen(isClose)
+    }
     
 
     return (
@@ -38,7 +54,7 @@ export default function AddressModal(props) {
                     <h4 className="font-weight-bold">Add new address</h4>
                 </div>
                 <ModalBody>
-                <Form onSubmit={'/'} className='p-4'>
+                <Form onSubmit={update} className='p-4'>
                     <FormGroup className="form-group input">
                         <Label className="text-secondary">Save address as (ex : home address, office address)</Label>
                         <Input onChange={(e)=>{setPlace(e.target.value)}} name='name' value={place} type='text' id='name' className='w-100' placeholder="Rumah" style={{height: '48px'}}  required/>
@@ -48,13 +64,13 @@ export default function AddressModal(props) {
                         <Col md={6}>
                             <FormGroup>
                             <Label for="Name" className="text-secondary">Recipient’s name</Label>
-                            <Input onChange={(e)=>{setRecipientName(e.target.value)}} name='recipient_name' value={recipient_name} type='email' id='email' placeholder="" style={{height: '48px'}} required/>
+                            <Input onChange={(e)=>{setRecipientName(e.target.value)}} name='recipient_name' value={recipient_name} type='name' id='name' placeholder="" style={{height: '48px'}} required/>
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
                             <Label for="phone" className="text-secondary">Recipient's telephone number</Label>
-                            <Input onChange={(e)=>{setRecipientNumber(e.target.value)}} name='recipient_number' value={recipient_number} type='email' id='email' placeholder="" style={{height: '48px'}} required/>
+                            <Input onChange={(e)=>{setRecipientNumber(e.target.value)}} name='recipient_number' value={recipient_number} type='phone' id='phone' placeholder="" style={{height: '48px'}} required/>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -68,7 +84,7 @@ export default function AddressModal(props) {
                         <Col md={6}>
                             <FormGroup>
                             <Label for="PostalCode" className="text-secondary">Postal code</Label>
-                            <Input onChange={(e)=>{setCity(e.target.value)}} name='postal_code' value={city} type='text' id='postalcode' style={{height: '48px'}} placeholder="" />
+                            <Input onChange={(e)=>{setPostalCode(e.target.value)}} name='postal_code' value={postal_code} type='text' id='postalcode' style={{height: '48px'}} placeholder="" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -87,16 +103,17 @@ export default function AddressModal(props) {
                         <Input type="checkbox" /> Make it the primary address
                         </Label>
                     </FormGroup>
-                </Form>
-                </ModalBody>
-                <ModalFooter className="btnAddress">
+                    
+                <div className="btnAddress ml-auto">
                     {/* <Button onClick={} className="d-flex ml-auto btn-light">Close</Button> */}
                     <Button onClick={()=>{setModalOpen(isClose)}} className="btn-secondary button rounded-pill w-25 btnAddress1 text-secondary" color={'light'}>
                         Cancel
                     </Button>
                     <Button type='submit' className='button rounded-pill w-25 btnAddress2' style={{backgroundColor: '#DB3022'}}>Save
                     </Button>
-                </ModalFooter>
+                </div>
+                </Form>
+                </ModalBody>
             </Modal>
         </React.Fragment>
     )

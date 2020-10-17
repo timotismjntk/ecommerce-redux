@@ -23,6 +23,9 @@ export default function NewProduct(props) {
     useEffect(()=>{
         // alert(id)
         if (isTrue && id) {
+            window.scrollTo({
+            top: 0
+            });
             history.push(`/product/detail?productId=${id}`)
         }
     }, [isTrue, history, id])

@@ -1,5 +1,6 @@
 const initialState = {
     data: {},
+    address: {},
     isLoading: false,
     isError: false,
     alertMsg: ''
@@ -26,7 +27,7 @@ const initialState = {
         return {
           ...state,
           isLoading: false,
-          data: action.payload.data.results
+          address: action.payload.data.results
         }
       }
       case 'GET_PRIMARY_ADDRESS_PENDING' : {

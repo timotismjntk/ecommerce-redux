@@ -83,8 +83,8 @@ const NavbarHooks = (props) => {
                     <img className="cart-icon mr-4" src={Mail} alt="mail" />
                 </a>
             </li>
-            <Button className="profile cart ml-auto mr-4" outline color='light' id="UncontrolledPopover" type="button">
-                <img className="cart-icon rounded-circle" src={data.profile_picture} style={{width: '50px', height: 'auto', objectFit: 'contain'}} alt="profile" />
+            <Button className="profile cart ml-auto mr-4 image-crop2" outline color='light' id="UncontrolledPopover" type="button">
+                <img className="rounded-circle profile-pic2" src={data.profile_picture} alt="profile" />
             </Button>
             <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
                 <PopoverHeader><Link to='/user/profile' className="text-secondary text-center profile cart ml-auto mr-4" id="UncontrolledPopover" type="button">Profile</Link>

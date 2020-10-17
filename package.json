@@ -26,7 +26,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:jsx-a11y/recommended"
+    ]
   },
   "browserslist": {
     "production": [
@@ -39,5 +42,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2"
   }
 }

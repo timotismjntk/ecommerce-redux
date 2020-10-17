@@ -6,6 +6,7 @@ import '../assets/css/address.css';
 import addressAction from '../redux/actions/address'
 
 import AddressModal from './AddressModal.js'
+import ChangeAddress from './ChangeAddressModal'
 
 export default function Address(props) {
     const user = useSelector(state=>state.profile)
@@ -13,7 +14,7 @@ export default function Address(props) {
 
     const dispatch = useDispatch()
     const [openModal, setOpenModal] = useState(false)
-    const [closeModal, setCloseModal] = useState(false)
+    const [openChangeModal, setOpenChangeModal] = useState(false)
     const [show, setShow] = useState(false)
 
     useEffect(()=>{
@@ -67,7 +68,7 @@ export default function Address(props) {
                     <p className="recipientName font-weight-bold">{fullAddress}</p>
                     <span className="recipientAddress">{data.address_name}</span>
                     <div className='d-flex flex-start mt-2'>
-                        <Button onClick={btnHandler}>
+                        <Button onClick={() => {setOpenChangeModal(true)}}>
                             Change address
                         </Button>
                     </div>
@@ -76,6 +77,7 @@ export default function Address(props) {
             </div>
             <React.StrictMode>
                 <AddressModal isOpen={openModal} isClose={() => setOpenModal(false)}/>
+                <ChangeAddress open={openChangeModal} close={() => setOpenChangeModal(false)}/>
             </React.StrictMode>
         </div>
     )

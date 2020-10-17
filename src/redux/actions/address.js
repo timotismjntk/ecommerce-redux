@@ -32,7 +32,7 @@ export default {
   patchAddress: (token, data, product_id) => {
     return {
       type: 'PATCH_ADDRESS',
-      payload: http(token).put(`user/cart/`, qs.stringify(data), {product_id})
+      payload: http(token).put(`user/address/`, qs.stringify(data), {product_id})
     }
   }
 }

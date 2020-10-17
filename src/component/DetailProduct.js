@@ -28,7 +28,9 @@ export default function DetailProduct(props) {
     const {data, price} = productState
 
     const [id, setId] = useState(data.id)
-
+    // const backToTop = () => {
+        
+    //   }
     const makeCart = (e) => {
         e.preventDefault()
         // alert(quantity)

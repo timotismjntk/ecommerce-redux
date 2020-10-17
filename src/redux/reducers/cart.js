@@ -4,6 +4,7 @@ const initialState = {
     isLoading: true,
     info: {},
     quantity: 1,
+    totalSummary: 0,
     quantityCartFromDB: 0,
     isSelected: false,
     isDelete: false,
@@ -32,7 +33,8 @@ const initialState = {
         return {
           ...state,
           isLoading: false,
-          info: action.payload.data.readChart
+          info: action.payload.data.readChart,
+          totalSummary: action.payload.data.summary
         }
       }
       case 'POST_CART_PENDING':{

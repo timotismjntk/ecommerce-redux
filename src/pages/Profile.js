@@ -42,19 +42,18 @@ export default function Profile(props) {
             <div className="d-flex flex-column pt-5 justify-content-center align-items-center">
                 {/* <div className="col col-3 pt-4 mt-5"> */}
               <div className="d-flex flex-row">
-                <div className="mr-3">
-                    <a href='/login'><img src={data.profile_picture} style={{width: '100px'}} alt="profile" /></a>
+                <div className="mr-3 image-crop">
+                    <img src={data.profile_picture} alt="profile" className='rounded-circle profile-pic' />
                 </div>
                 <div className="d-flex flex-column">
                     <div className="name">
                         <span className="font-weight-bold">{data.name}</span>
                     </div>
                     <div className="edit d-flex align-items-center">
-                            <div className="icon mr-2">
-                                <a href='/login'><img src={editIcon} alt="edit" /></a>
+                            <div className="icon mr-2"><img src={editIcon} alt="edit" />
                             </div>
                             <div className="change">
-                                <a href='/login'><span className="text-secondary">Ubah profile</span></a>
+                                <Button outline='light' onClick={()=>{setAccount(true); setShipping(false); setOrder(false)}}><span className="text-secondary">Ubah profile</span></Button>
                             </div>
                     </div>
                 </div>
@@ -68,7 +67,7 @@ export default function Profile(props) {
                         </Button>
                     </div>
                     <div className="">
-                        <span className={account ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Account</span>
+                        <span onClick={()=>{setAccount(false); setShipping(true); setOrder(false)}} className={account ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Account</span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-start mb-3">
@@ -78,7 +77,7 @@ export default function Profile(props) {
                         </Button>
                     </div>
                     <div className="">
-                        <span className={shipping ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>Shipping Address</span>
+                        <span onClick={()=>{setAccount(false); setShipping(true); setOrder(false)}} className={shipping ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>Shipping Address</span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-start mb-3">
@@ -88,7 +87,7 @@ export default function Profile(props) {
                         </Button>
                     </div>
                     <div className="">
-                        <span className={order ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Order</span>
+                        <span onClick={()=>{setAccount(false); setShipping(false); setOrder(true)}} className={order ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Order</span>
                     </div>
                 </div>
               </div>

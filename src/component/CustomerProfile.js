@@ -4,6 +4,7 @@ import { Container, Alert, Button,
     Col, Media, Label, Form, Input } from 'reactstrap'
 import profileAction from '../redux/actions/profile'
 // import userImg from '../assets/images/profil1.svg'
+import http from './../helpers/http'
 
 import '../assets/css/profile.css';
 import ModalResponse from './ModalResponse'
@@ -11,9 +12,23 @@ import ModalResponse from './ModalResponse'
 export default function CustomerProfile(props) {
     const dispatch = useDispatch()
     const profileState =  useSelector(state=>state.profile)
-    const {data, alertMsg, updated} = profileState
+    const {data, alertMsg, updated, isLoading} = profileState
 
     const token = useSelector(state=>state.auth.token)
+
+    
+  useEffect(()=>{
+    // dispatch(profileAction.getProfile(token))
+    if (updated) {
+        dispatch(profileAction.getProfile(token))
+        setModalOpen(true)
+    }
+    if (isLoading) {
+        alert('true')
+        dispatch(profileAction.getProfile(token))
+    }
+  },[dispatch, token, updated, isLoading])
+
     const [dropdownOpen, setOpen] = useState(false);
 
     const [userName, setName] = useState(data.name)
@@ -38,21 +53,19 @@ export default function CustomerProfile(props) {
         dispatch(profileAction.updateProfile(token, info))
     }
     
-    const uploadFile = (data) => {
-        // e.preventDefault();
+    const uploadFile = async (e) => {
+        e.preventDefault();
         const form = new FormData();
+        form.append('picture', e.target.files[0])
+        const data = await http(token).patch(`manage/users`, form)
         console.log(data)
-        if (form) {
-            dispatch(profileAction.updateProfile(token, form.append('picture', data)))
+        if(data.status === 200) {
+            console.log(data)
+            alert(data.data.message)
+            dispatch(profileAction.getProfile(token))
         }
     }
 
-  useEffect(()=>{
-    if (updated) {
-        dispatch(profileAction.getProfile(token))
-        setModalOpen(true)
-    }
-  },[dispatch, token, updated])
 
     return (
         <div className="wrapperDetailUser d-flex flex-row mt-5">
@@ -132,19 +145,16 @@ export default function CustomerProfile(props) {
                             <div className="pics d-flex flex-column align-items-center">                   
                                 <Col md={4} className='user'>
                                     <Media className='picts'>
-                                        <Media top>
-                                            <Media src={userImage!==''?userImage : ''} className='rounded-circle avatar' alt="profil" style={{
-                                                top: '40px', left: '52%',
-                                                transform: 'translate(-50%, -50%)', height: '100px', width: '120%', position: 'absolute'
-                                            }} />
+                                        <Media top className='image-crop3'>
+                                            <Media src={userImage!==''?userImage : ''} className='rounded-circle profile-pic3' alt="profil" />
                                         </Media>
-                                        <Media body className='ml-4 pl-3' style={{marginTop: '180px'}}>
+                                    </Media>     
+                                    <Media body className='ml-5 pl-3 w-100'>
                                             <Label className="btn btn-outline-secondary rounded-pill">
                                                 <span>Select File</span>
-                                                    <Input onChange={(e)=> uploadFile(e.target.files)} style={{display: 'none'}} type='file' name='picture' accept='.jpg,.jpeg,.png' />
+                                                    <Input onChange={uploadFile} style={{display: 'none'}} type='file' name='picture' accept='.jpg,.jpeg,.png' />
                                             </Label>
-                                        </Media> 
-                                    </Media>           
+                                        </Media>      
                                 </Col>
                             </div>
                         </div>   

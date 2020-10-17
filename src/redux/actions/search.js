@@ -6,7 +6,7 @@ export default {
     //   alert(data)
     return {
       type: 'SEARCH_ITEM',
-      payload: http().get(`http://localhost:8080/public/product/new?${qs.stringify(data)}`)
+      payload: http().get(`public/product/new?${qs.stringify(data)}`)
     }
   }
 }
