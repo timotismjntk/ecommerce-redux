@@ -192,15 +192,15 @@ export default function DetailProduct(props) {
                                 </Button>
                             </Col>
                             <Col md={6} sm={6} xs={6} lg={4}>
-                                <Button onClick={makeCart} outline color="secondary" style={{height: '48px', width: '160px', borderRadius: '24px', color: '#000000'}}>
+                                <Button onClick={makeCart} outline color="secondary" style={{backgroundColor: '#DB3022', color: '#ffffff', height: '48px', width: '160px', borderRadius: '24px'}}>
                                     Add Bag
                                 </Button>
                             </Col>
-                            <Col md={6} sm={6} xs={6} lg={6} className='mt-4'>
+                            {/* <Col md={6} sm={6} xs={6} lg={6} className='mt-4'>
                                 <Button outline color="secondary" style={{height: '48px', width: '343px', borderRadius: '24px', backgroundColor: '#DB3022', color: '#ffffff'}}>
                                     Buy Now
                                 </Button>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </Col>
                 </Row>
