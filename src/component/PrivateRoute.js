@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
+import authAction from "../redux/actions/auth";
+
 class PrivateRoute extends Component {
   render() {
     return (
@@ -15,19 +17,26 @@ class PrivateRoute extends Component {
           })
           if(this.props.auth.isLogin){
             return childWithProps
-          }else{
-            return <Redirect to={{
-              pathname: '/login',
-              state: {alert: 'Login first!', color: 'danger', location: this.props.location.pathname}
-            }} />
-          }
-          
+          } 
+          return (
+            <Redirect to={{
+              pathname: "/login",
+              state: { alert: "Login first!", color: "danger", location: this.props.location.pathname },
+            }}
+            />
+          );
         }
       } />
     )
   }
 }
 
-const mapStateToProps = state => ({auth: state.auth})
+const mapStateToProps = (state) => ({ 
+  auth: state.auth 
+});
 
-export default connect(mapStateToProps)(PrivateRoute)
+const mapDispatchToProps = {
+  setToken: authAction.setToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);

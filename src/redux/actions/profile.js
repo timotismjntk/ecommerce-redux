@@ -19,5 +19,10 @@ export default {
       type: 'PATCH_PROFILE',
       payload: http(token).patch(`manage/users`, qs.stringify(data))
     }
+  },
+  removeMessage: ()=> {
+    return {
+      type: 'REMOVE_MESSAGE',
+    }
   }
 }

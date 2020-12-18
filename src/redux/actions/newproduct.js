@@ -1,10 +1,10 @@
-import http from '../../helpers/http'
+import http from "../../helpers/http";
 
 export default {
-  getNewProduct: ()=>{
+  getNewProduct: (page = 1)=>{
     return {
-      type: 'GET_ITEM',
-      payload: http().get(`public/product/new`)
-    }
+      type: "GET_ITEM_NEW",
+      payload: http().get(`public/product/new?page=${page}`)
+    };
   }
-}
+};

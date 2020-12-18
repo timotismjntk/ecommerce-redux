@@ -10,7 +10,6 @@ export default {
     }
   },
   createCart: (token, data)=> {
-      alert(token)
       return {
           type: 'POST_CART',
           payload: http(token).post('user/cart', qs.stringify(data))

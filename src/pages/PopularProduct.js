@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import Navbar from '../component/Navbar'
 import ProductCard from '../component/Card'
-
 import {Container, Row, Col, Button} from 'reactstrap'
 import { useHistory } from 'react-router-dom'
-
-import getDetailProductIdAction from '../redux/actions/detailProduct'
+import Paginations from '../component/PaginationPopularProduct';
 
 import popularProductAction from '../redux/actions/popular'
 
-import '../assets/css/product.css';
+import getDetailProductIdAction from '../redux/actions/detailProduct'
 
-export default function PopularProduct(props) {
-    
+import '../assets/css/ecommerce.css';
+
+const PopularProduct = (props) => {
     const dispatch = useDispatch()
     const history = useHistory()
     
     const detailProductState = useSelector(state=>state.detailproduct)
     const {isTrue, detailId} = detailProductState
-
+    
     const [id, setId] = useState(0)
 
-    // useEffect(()=>{
-        useEffect(()=>{
-            // alert(id)
-            if (isTrue && id) {
-                history.push(`/product/detail?productId=${id}`)
-            }
-        }, [isTrue, history, id])
+    useEffect(() => {
+        window.scrollTo({
+            top: 0
+        });
+    }, []);
     
+    useEffect(()=>{
+        // alert(id)
+        if (isTrue && id) {
+            window.scrollTo({
+            top: 0
+            });
+            history.push(`/product/detail?productId=${id}`)
+        }
+    }, [isTrue, history, id])
         
         useEffect(()=>{
             dispatch(popularProductAction.getPopularProduct())
@@ -42,15 +49,16 @@ export default function PopularProduct(props) {
     
         const productState = useSelector(state=>state.popularproduct)
     
-        const {data} = productState
+        const {data, pageInfo} = productState
 
-        const expand = () => {
-            history.push('/product/popular')
-        }
-    // console.log(data)
     return (
-        <Container fluid>
-            <Row className='popularProduct'>
+      <React.Fragment>
+        <Navbar />
+        <Container className='mt-5 vh-100'>
+          <div className="category mt-5 mb-4">
+              <h3 className="font-weight-bold">Popular Product</h3>
+          </div>
+          <Row>
                 {Object.keys(data) && data.length && data.map((items, index) => {
                     return(
                         <Col xs={6} sm={4} md={3} className='mb-5' onClick={()=>{setId(items.id)}}>
@@ -58,13 +66,19 @@ export default function PopularProduct(props) {
                         </Col>
                     )
                 })}
-                <div>
-                    <Button color='link' onClick={expand}>
-                        <img src={require('../assets/images/right.png')} alt="right" />
-                    </Button>
-                    <h5>See more</h5>
-                </div>
-            </Row>
+          </Row> 
+          <div className="d-flex justify-content-center mt-5">
+            <Paginations
+                postsPerPage={pageInfo.limitPerPage}
+                totalPosts={pageInfo.count}
+                currentPage={pageInfo.currentPage}
+                pageInfo={pageInfo}
+            />
+          </div>
         </Container>
+      </React.Fragment>
     )
+
 }
+
+export default PopularProduct

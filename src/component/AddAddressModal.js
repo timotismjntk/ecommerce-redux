@@ -18,6 +18,7 @@ export default function AddressModal(props) {
     let [postal_code, setPostalCode] = useState('');
     let [city, setCity] = useState('');
     let [isPrimary, setIsPrimary] = useState(0);
+    const [backdrop, setBackdrop] = useState(true);
 
     const dispatch = useDispatch()
     const token = useSelector(state=>state.auth.token)
@@ -29,7 +30,7 @@ export default function AddressModal(props) {
         // alert(isOpen)
     }, [isOpen, isClose]);
 
-    const update = (e) => {
+    const addAddress = (e) => {
         // alert(e)
             let data = {
             place,
@@ -43,18 +44,19 @@ export default function AddressModal(props) {
             dispatch(addressAction.createAddress(token, data))
             setModalOpen(isClose)
     }
-    
-
+    const closeModal = () => {
+        setModalOpen(isClose)
+    }
     return (
         <React.Fragment >
-            <Modal isOpen={modalOpen} className="modal-dialog modal-lg">
-                <ModalHeader style={{borderBottom: 'none'}}>
+            <Modal isOpen={modalOpen} backdrop={backdrop} className="modal-dialog modal-lg">
+                <ModalHeader style={{borderBottom: 'none'}} toggle={closeModal}>
                 </ModalHeader>
                 <div className="d-flex align-items-center justify-content-center flex-center">
                     <h4 className="font-weight-bold">Add new address</h4>
                 </div>
                 <ModalBody>
-                <Form onSubmit={update} className='p-4'>
+                <Form onSubmit={addAddress} className='p-4'>
                     <FormGroup className="form-group input">
                         <Label className="text-secondary">Save address as (ex : home address, office address)</Label>
                         <Input onChange={(e)=>{setPlace(e.target.value)}} name='name' value={place} type='text' id='name' className='w-100' placeholder="Rumah" style={{height: '48px'}}  required/>
@@ -100,7 +102,7 @@ export default function AddressModal(props) {
 
                     <FormGroup check inline>
                         <Label check className='text-secondary'>
-                        <Input type="checkbox" /> Make it the primary address
+                            <Input type="checkbox" onClick={() => isPrimary !== 1 ? setIsPrimary(1) : setIsPrimary(0)} /> Make it the primary address
                         </Label>
                     </FormGroup>
                     

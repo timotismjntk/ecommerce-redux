@@ -40,7 +40,8 @@
     background-color: #ffffff;
     width: 785px;
     padding-top: 20px;
-    height: 540px;
+    /* height: auto; */
+    flex: 1;
     padding: 25px
 }
 
@@ -195,5 +196,16 @@ body {
   /* margin-top: -0px; */
   height: 80%;
   width: 210px;
+  object-fit: contain;
+}
+
+.customer .pics .user .picts2 {
+    margin: 0 auto;
+  /* margin-left: 47%; */
+  /* margin-top: -0px; */
+  margin-bottom: 20px;
+  margin-left: 52px;
+  height: 60%;
+  width: 110px;
   object-fit: contain;
 }

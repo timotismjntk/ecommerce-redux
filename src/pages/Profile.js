@@ -4,7 +4,7 @@ import profileAction from '../redux/actions/profile'
 import Navbar from '../component/Navbar'
 import CustomerProfile from '../component/CustomerProfile'
 import CustomerAddress from '../component/Address'
-import AddressModal from '../component/AddressModal'
+import AddressModal from '../component/AddAddressModal'
 import MyOrder from '../component/MyOrder'
 
 import '../assets/css/profile.css';
@@ -18,6 +18,8 @@ import addressIcon from '../assets/images/map-icon.svg'
 import { Container, Input, Form, Button } from 'reactstrap'
 
 export default function Profile(props) {
+  const {REACT_APP_BACKEND_URL} = process.env
+  
   const token = useSelector(state=>state.auth.token)
   const user = useSelector(state=>state.profile)
   const dispatch = useDispatch()
@@ -30,10 +32,14 @@ export default function Profile(props) {
 
   useEffect(()=>{
     dispatch(profileAction.getProfile(token))
+  },[])
+
+  useEffect(() => {
     if (updated) {
       dispatch(profileAction.getProfile(token))
     }
-  },[dispatch, token, updated])
+  }, [updated])
+
   return (
     <div style={{backgroundColor: 'white'}}>
         <Navbar />
@@ -41,20 +47,15 @@ export default function Profile(props) {
           <div className="boxUser">
             <div className="d-flex flex-column pt-5 justify-content-center align-items-center">
                 {/* <div className="col col-3 pt-4 mt-5"> */}
-              <div className="d-flex flex-row">
-                <div className="mr-3 image-crop">
-                    <img src={data.profile_picture} alt="profile" className='rounded-circle profile-pic' />
-                </div>
-                <div className="d-flex flex-column">
+              <div className="d-flex" style={{alignItems: 'center'}}>
+                <div style={{width: "75px", height: "75px", backgroundImage: `url(${data.profile_picture ? data.profile_picture : `https://ui-avatars.com/api/?size=50&name=${data.name}`})`, backgroundSize: "cover", display: "block", backgroundPosition: "center",borderRadius: "100px", BorderRadius: "100px"}}></div>
+                <div className="d-flex flex-column ml-2">
                     <div className="name">
                         <span className="font-weight-bold">{data.name}</span>
                     </div>
-                    <div className="edit d-flex align-items-center">
-                            <div className="icon mr-2"><img src={editIcon} alt="edit" />
-                            </div>
-                            <div className="change">
-                                <Button outline='light' onClick={()=>{setAccount(true); setShipping(false); setOrder(false)}}><span className="text-secondary">Ubah profile</span></Button>
-                            </div>
+                    <div style={{alignItems: 'center', flexDirection: 'row'}}>
+                      <img src={editIcon} alt="edit" />
+                      <Button style={{backgroundColor: 'white', borderColor: 'white', paddingLeft: 5}} onClick={()=>{setAccount(true); setShipping(false); setOrder(false)}}><span className="text-secondary">Ubah profile</span></Button>
                     </div>
                 </div>
               </div>
@@ -67,7 +68,7 @@ export default function Profile(props) {
                         </Button>
                     </div>
                     <div className="">
-                        <span onClick={()=>{setAccount(false); setShipping(true); setOrder(false)}} className={account ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Account</span>
+                        <span onClick={()=>{setAccount(true); setShipping(false); setOrder(false)}} className={account ? 'text-dark' : 'text-secondary'} style={{fontWeight: '500'}}>My Account</span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-start mb-3">

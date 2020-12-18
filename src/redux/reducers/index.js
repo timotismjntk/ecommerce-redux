@@ -11,6 +11,7 @@ import categoryproduct from './categoryProduct'
 import detailproduct from './detailProduct'
 import checkout from './checkout'
 import cart from './cart'
+import orders from './orders'
 import search from './search'
 import address from './address'
 
@@ -26,6 +27,7 @@ export default combineReducers({
   detailproduct,
   checkout,
   cart,
+  orders,
   search,
   address
 })

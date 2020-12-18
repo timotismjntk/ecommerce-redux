@@ -5,12 +5,13 @@ import Rating from '../component/Rating'
 
 import '../assets/css/card.css';
 
+const {REACT_APP_BACKEND_URL} = process.env
 
 
 export default function ProductCard(props) {
     return (
         <Card style={{radius: '8px'}}>
-            <CardImg top width="100%" style={{width: '238px', height: '136px', objectFit: 'contain'}} src={props.url} className='customCard' alt='item' />
+            <CardImg top width="100%" style={{width: '238px', height: '136px', objectFit: 'contain'}} src={REACT_APP_BACKEND_URL+props.url} className='customCard' alt='item' />
             <CardBody>
                 <CardTitle style={{fontWeight: 'bold', fontSize: '16px'}}>{props.name}</CardTitle>
                 <CardSubtitle style={{fontWeight: '500', color: '#DB3022', fontSize: '16px'}}>Rp. {props.price}</CardSubtitle>

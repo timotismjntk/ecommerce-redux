@@ -1,8 +1,9 @@
 const initialState = {
-    data: {},
-    address: {},
+    data: [],
+    address: [],
     isLoading: false,
     isError: false,
+    isSuccess: false,
     alertMsg: ''
   }
   
@@ -28,6 +29,30 @@ const initialState = {
           ...state,
           isLoading: false,
           address: action.payload.data.results
+        }
+      }
+      case 'CHOOSE_ADDRESS_PENDING' : {
+        return {
+          ...state,
+          isLoading: true
+        }
+      }
+      case 'CHOOSE_ADDRESS_REJECTED': {
+        return {
+          ...state,
+          isLoading: false,
+          isError: true,
+          alertMsg: 'There is an error at request data'
+        }
+      }
+      case 'CHOOSE_ADDRESS_FULFILLED': {
+        // console.log(action.payload.data.results[0].total_rating)
+        return {
+          ...state,
+          isLoading: false,
+          alertMsg: action.payload.data.message,
+          isSuccess: true,
+          isError: false
         }
       }
       case 'GET_PRIMARY_ADDRESS_PENDING' : {
@@ -56,7 +81,7 @@ const initialState = {
         return {
             ...state,
             isLoading: true,
-            info:{}
+            info:[]
         }
     }
     case 'POST_ADDRESS_REJECTED':{
@@ -64,7 +89,7 @@ const initialState = {
             ...state,
             isLoading: false,
             isError: true,
-            info: {},
+            info: [],
             alertMsg: action.payload.response.data.message
         }
     }
@@ -73,7 +98,7 @@ const initialState = {
             ...state,
             isLoading: false,
             alertMsg: 'Success',
-            // info:{},
+            // info:[],
             isAdded: true,
             quantity: 1
         }
@@ -98,6 +123,15 @@ const initialState = {
           alertMsg: 'Success',
           quantityADDRESSFromDB: 'tes'
         }
+    }
+    case 'CLEAR_MESSAGE': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isSuccess: false,
+        alertMsg: ''
+      }
     }
       default : {
         return state

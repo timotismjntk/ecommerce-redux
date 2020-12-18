@@ -26,21 +26,20 @@ export default function SearchResults(props) {
             }
         }, [history, id])
     
-        
         useEffect(()=>{
             dispatch(popularProductAction.getPopularProduct())
-        }, [dispatch])
+        }, [])
     
     
         useEffect(()=>{
+           if (id) {
             dispatch(getDetailProductIdAction.getDetailProducts(id))
-        }, [id, dispatch])
+           }
+        }, [id])
     
-    
-        // const productState = useSelector(state=>state.popularproduct)
-    
-        // const {data} = productState
-    // console.log(data)
+    // search process is in component navbar
+    // search process is in component navbar
+        
     return (
         <Container fluid>
             <Row>

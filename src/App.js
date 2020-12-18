@@ -14,8 +14,12 @@ import Counter from './pages/Counter'
 import About from './pages/About'
 import Episode from './pages/Episode'
 import Profile from './pages/Profile'
-import Product from './pages/Product'
+import ProductDetail from './pages/ProductDetail'
+import NewProduct from './pages/NewProduct'
+import ShowByCategory from './pages/Category'
+import PopularProduct from './pages/PopularProduct'
 import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
 import SearchProduct from './pages/SearchProduct'
 
 //Import store
@@ -23,6 +27,7 @@ import store from './redux/store'
 
 //import action
 import authAction from './redux/actions/auth'
+import profileAction from './redux/actions/profile'
 
 export default function App() {
     const dispatch = useDispatch()
@@ -30,7 +35,14 @@ export default function App() {
       if(localStorage.getItem('token')){
         dispatch(authAction.setToken(localStorage.getItem('token')))
       }
-    }, [dispatch])
+    }, [])
+
+    const token = useSelector(state=>state.auth.token)
+    useEffect(()=>{
+      if (token) {
+        dispatch(profileAction.getProfile(token))
+      }
+    },[token])
 
     return (
         <>
@@ -48,8 +60,14 @@ export default function App() {
               <PrivateRoute path='/user/cart'>
                 <Cart />
               </PrivateRoute>
+              <PrivateRoute path='/user/checkout'>
+                <Checkout />
+              </PrivateRoute>
               {/* <Profile /> */}
-              <Route path='/product/detail' render={(props)=><Product {...props}/>} />
+              <Route path='/product/category' render={(props)=><ShowByCategory {...props}/>} />
+              <Route path='/product/detail' render={(props)=><ProductDetail {...props}/>} />
+              <Route path='/product/new' render={(props)=><NewProduct {...props}/>} />
+              <Route path='/product/popular' render={(props)=><PopularProduct {...props}/>} />
               <Route path='/search/product' render={(props)=><SearchProduct {...props}/>} />
               <Route path='/about' render={()=><About />} />
               <Route path='/episode' render={()=><Episode />} />

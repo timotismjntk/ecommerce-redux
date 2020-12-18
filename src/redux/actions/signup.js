@@ -3,7 +3,7 @@ import qs from 'querystring'
 
 export default {
   createCustomer: (data)=>({
-    type: 'AUTH_USER',
+    type: 'SIGNUP_USER',
     payload: http().post('auth/signup/',qs.stringify(data))
   }),
   clearMessage: ()=>({

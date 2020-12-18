@@ -1,0 +1,83 @@
+.header .message {
+    margin-bottom: 50px;
+}
+
+.header .message span {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.switch .btn {
+    width: 123px;
+    height: 48px;
+    margin-bottom: 40px;
+}
+
+.switch .btn.btn-primary {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.switch .btn.btn-secondary {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.btn-primary {
+    background-color: #DB3022;
+    color: #ffffff;
+    border-width: 0;
+}
+.btn-primary:focus {
+    background-color: #DB3022;
+    color: #ffffff;
+    border-width: 0;
+    border:none;
+    outline: none;
+    display: block
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #DB3022;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: #DB3022;
+}
+
+.auth {
+    width: 400px;
+}
+
+.auth .form-group {
+    margin: 0;
+}
+
+.auth .input {
+    margin-bottom: 16px;
+}
+
+.auth .input input {
+    height: 48px;
+    border: 1px solid #9B9B9B;
+    border-radius: 4px;
+    padding: 0 20px;
+}
+
+.auth .forgot-link {
+    margin-bottom: 26px;
+}
+
+.auth .button .btn {
+    height: 48px;
+    border-radius: 25px;
+    margin-bottom: 40px;
+}
+
+.register-link {
+    color: #DB3022
+}
+
+:required {
+    outline-color: #DB3022
+}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Container, CustomInput, Input , Row, Col, Label, Button} from 'reactstrap'
-import Navbar from '../component/Navbar'
 import { useHistory } from 'react-router-dom'
 
 import Rating from '../component/Rating'
@@ -13,9 +12,12 @@ import MinusBtn from '../assets/images/kurang.svg'
 import AddBtn from '../assets/images/tambah.svg'
 
 import cartAction from '../redux/actions/cart'
+import ModalResponse from './ModalResponse'
 
 
 export default function DetailProduct(props) {
+    
+    const {REACT_APP_BACKEND_URL} = process.env
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -28,9 +30,17 @@ export default function DetailProduct(props) {
     const {data, price} = productState
 
     const [id, setId] = useState(data.id)
+    const [modalOpen, setModalOpen] = useState(false)
+    const [color, setColor] = useState(false)
+
     // const backToTop = () => {
         
     //   }
+    
+    useEffect(() => {
+        window.scrollTo(0, 200);
+    }, []);
+
     const makeCart = (e) => {
         e.preventDefault()
         // alert(quantity)
@@ -42,6 +52,7 @@ export default function DetailProduct(props) {
             dispatch(cartAction.getCart(token))
             setTimeout(() =>{
                 dispatch(cartAction.createCart(token, data))
+                setModalOpen(true)
             }, 100)
         }
         else {
@@ -49,10 +60,17 @@ export default function DetailProduct(props) {
         }
     }
     useEffect(()=>{
+        if (!data.url) {
+            setTimeout(()=>{
+                history.push('/')
+            }, 300)
+        }
+    }, [data])
+    useEffect(()=>{
         if(isAdded){
             dispatch(cartAction.getCart(token))
         }
-    }, [token, dispatch, isAdded])
+    }, [isAdded])
     const increaseAmountProductCart = () => {
         dispatch(cartAction.increaseQuantityBeforeAddCart())
     }
@@ -67,23 +85,23 @@ export default function DetailProduct(props) {
                     <Col xs={12} sm={12} md={12} lg={6}>
                         <Row>
                             <Col lg={6} className='mb-3'>
-                                <div style={{ backgroundColor: '#f3f4f7', width: '250px', height: '320px', borderRadius: '8px'}}>
-                                    <img src={data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
+                                <div style={{ width: '250px', height: '320px', borderRadius: '8px'}}>
+                                    <img src={REACT_APP_BACKEND_URL + data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
                                 </div>
                             </Col>
                             <Col lg={6} className='mb-3'>
-                                <div style={{ backgroundColor: '#f3f4f7', width: '250px', height: '320px', borderRadius: '8px'}}>
-                                    <img src={data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
+                                <div style={{ width: '250px', height: '320px', borderRadius: '8px'}}>
+                                    <img src={REACT_APP_BACKEND_URL + data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
                                 </div>
                             </Col>
                             <Col lg={6} className='mb-3'>
-                                <div style={{ backgroundColor: '#f3f4f7', width: '250px', height: '320px', borderRadius: '8px'}}>
-                                    <img src={data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
+                                <div style={{ width: '250px', height: '320px', borderRadius: '8px'}}>
+                                    <img src={REACT_APP_BACKEND_URL + data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
                                 </div>
                             </Col>
                             <Col lg={6} className='mb-3'>
-                                <div style={{ backgroundColor: '#f3f4f7', width: '250px', height: '320px', borderRadius: '8px'}}>
-                                    <img src={data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
+                                <div style={{ width: '250px', height: '320px', borderRadius: '8px'}}>
+                                    <img src={REACT_APP_BACKEND_URL + data.url} style={{width: '250px', height: '320px', objectFit: 'contain'}} alt='detail'/>
                                 </div>
                             </Col>
                         </Row>
@@ -104,23 +122,43 @@ export default function DetailProduct(props) {
                         
                         <div>
                             <Label className='font-weight-bold mt-4' style={{fontSize: '16px'}}>Color</Label>
-                            <Col lg={4} className="d-flex flex-Row">
-                            <div className="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="customRadio" className="custom-control-input" />
-                                <label className="custom-control-label" for="customRadio1"></label>
-                            </div>
-                            <div className="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="customRadio" className="custom-control-input bg-warning" style={{backgroundColor: 'red'}}></input>
-                                <label className="custom-control-label bg-warning" for="customRadio2"></label>
-                            </div>
-                            <div className="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="customRadio" className="custom-control-input" />
-                                <label className="custom-control-label" for="customRadio3"></label>
-                            </div>
-                            <div className="custom-control custom-radio">
-                                <input type="radio" id="customRadio4" name="customRadio" className="custom-control-input" />
-                                <label className="custom-control-label" for="customRadio4"></label>
-                            </div>
+                            <Col lg={4} className="d-flex flex-Row" style={{justifyContent: 'space-between'}}>
+                                {color === 'black' ? (
+                                    <div style={{backgroundColor: '#DB3022', padding: 1, borderRadius: 30}}>
+                                        <Button style={{borderWidth: 3, borderColor: 'white', backgroundColor: 'black', padding: 12, borderRadius: 30}} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Button style={{backgroundColor: 'black', padding: 15, borderRadius: 30}} onClick={() => setColor('black')} />
+                                    </div>
+                                )}
+                                {color === '#D84242' ? (
+                                    <div style={{backgroundColor: '#DB3022', padding: 1, borderRadius: 30}}>
+                                        <Button style={{borderWidth: 3, borderColor: 'white', backgroundColor: '#D84242', padding: 12, borderRadius: 30}} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Button style={{backgroundColor: '#D84242', padding: 15, borderRadius: 30}} onClick={() => setColor('#D84242')} />
+                                    </div>
+                                )}
+                                {color === '#4290D8' ? (
+                                    <div style={{backgroundColor: '#DB3022', padding: 1, borderRadius: 30}}>
+                                        <Button style={{borderWidth: 3, borderColor: 'white', backgroundColor: '#4290D8', padding: 12, borderRadius: 30}} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Button style={{backgroundColor: '#4290D8', padding: 15, borderRadius: 30}} onClick={() => setColor('#4290D8')} />
+                                    </div>
+                                )}
+                                {color === '#42D86C' ? (
+                                    <div style={{backgroundColor: '#DB3022', padding: 1, borderRadius: 30}}>
+                                        <Button style={{borderWidth: 3, borderColor: 'white', backgroundColor: '#42D86C', padding: 12, borderRadius: 30}} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Button style={{backgroundColor: '#42D86C', padding: 15, borderRadius: 30}} onClick={() => setColor('#42D86C')} />
+                                    </div>
+                                )}
                             </Col>
                         </div>
 
@@ -167,6 +205,7 @@ export default function DetailProduct(props) {
                     </Col>
                 </Row>
             </div>
+            <ModalResponse open={modalOpen} close={()=>{setModalOpen(false)}} message={'Success Added to cart'}/>
         </Container>
     )
 }

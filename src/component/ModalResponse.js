@@ -25,7 +25,7 @@ export default function ModalResponse(props) {
                 </ModalHeader>
                 <ModalBody>
                     <h3>
-                        {message}
+                        {message ? message : 'Profile Updated'}
                     </h3>
                 </ModalBody>
                 <ModalFooter>

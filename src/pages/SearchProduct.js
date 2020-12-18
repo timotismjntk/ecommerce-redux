@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import { Container } from 'reactstrap'
 // import {connect} from 'react-redux'
@@ -8,14 +9,15 @@ import SearchingResult from '../component/searchItem'
 import CategoryProduct from '../component/CategoryProduct'
 
 // import authAction from '../redux/actions/auth'
-
+import searchAction from '../redux/actions/search'
 
 import '../assets/css/ecommerce.css';
 
 const SearchProduct = (props) => {
+  const searchHistory = props.location.search
 
-    console.log(props)
-    const [searchHistory, setSearchHistory] = useState(props.location.search)
+    // search process is in component navbar
+  console.log(props)
     return (
       <React.Fragment>
         <Navbar />

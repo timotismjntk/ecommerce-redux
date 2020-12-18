@@ -47,15 +47,11 @@ export default function Login(props) {
   } = LoginState
 
     useEffect(()=>{
-        console.log(props.location.state)
       if(isLogin) {
         dispatch(profileAction.getProfile(token))
-        setTimeout(()=>{
-            props.history.push(props.location.state ? props.location.state.location: '/')
-        }, 300)
-        // props.history.push('/')
+        props.history.push(props.location.state ? props.location.state.location: '/')
       }
-    }, [isLogin, props, dispatch, token])
+    }, [isLogin])
     
     return (
         <React.Fragment>

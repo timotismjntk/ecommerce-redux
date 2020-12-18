@@ -58,20 +58,20 @@ export default function Signup(props) {
 
     
     const {
-        isError, 
-        isMatch, 
+        checkError, 
+        match, 
         pswdMsg, 
         alertMsg,
-        isLength,
+        length,
         pswdLenMsg
     } = SignupState
     
     // useEffect(() => {
-    //     if(isError){
+    //     if(checkError){
     //         setPassword('')
     //         setConfPassword('')
     //     }
-    // }, [isError])
+    // }, [checkError])
 
     useEffect(()=>{
         if(password.length > 0 && password.length < 8) {
@@ -85,7 +85,7 @@ export default function Signup(props) {
         if(isDisplay) {
             setConfPassword('')
         }
-    }, [dispatch, password, isLength, isDisplay])
+    }, [dispatch, password, length, isDisplay])
 
     useEffect(()=>{
         // alert(confPassword)
@@ -94,7 +94,7 @@ export default function Signup(props) {
         }else {
             dispatch(signUpAction.clearMessage())
         }
-    }, [dispatch, password, confPassword, isMatch])
+    }, [dispatch, password, confPassword, match])
     
     console.log(SignupState)
     return (
@@ -114,15 +114,15 @@ export default function Signup(props) {
                 </div>
 
                 <Form onSubmit={signup} className='auth'>
-                    <Alert color={isError?'danger':'success'} className='font-weight-bold' isOpen={isError} toggle={()=>{dispatch(signUpAction.clearMessage())}}>Email Already registered with another account!</Alert>
+                    <Alert color={checkError?'danger':'success'} className='font-weight-bold' isOpen={checkError} toggle={()=>{dispatch(signUpAction.clearMessage())}}>Email Already registered with another account!</Alert>
                     <div className="form Customer" id="form1">
-                        <Alert color={isError?'danger':'success'} className='font-weight-bold' isOpen={!isError && alertMsg} toggle={()=>{dispatch(signUpAction.clearMessage())}}>{alertMsg}</Alert>
+                        <Alert color={checkError?'danger':'success'} className='font-weight-bold' isOpen={!checkError && alertMsg} toggle={()=>{dispatch(signUpAction.clearMessage())}}>{alertMsg}</Alert>
                         <div className="form-group input">
                             <Input onChange={(e)=>{setName(e.target.value)}} name='name' value={name} type='text' id='name' className='w-100' placeholder="Name" required/>
                         </div>
                         <div className="form-group input">
-                            <Input onChange={(e)=>{setEmail(e.target.value)}} name='email' value={email} type='email' style={isError ? {border: '1px solid #e35940'} : null} id='email' placeholder="Email" required/>
-                            <span className='mb-2 font-weight-bold' style={isError ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{alertMsg}</span>
+                            <Input onChange={(e)=>{setEmail(e.target.value)}} name='email' value={email} type='email' style={checkError ? {border: '1px solid #e35940'} : null} id='email' placeholder="Email" required/>
+                            <span className='mb-2 font-weight-bold' style={checkError ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{alertMsg}</span>
                         </div>
 
                         <div className="form-group input">
@@ -133,12 +133,12 @@ export default function Signup(props) {
                         </div>
                         <div className="form-group input">
                             <Input autoComplete='off' onChange={(e)=>{setPassword(e.target.value)}} name='password' value={password} type='password' id='password' placeholder="Password" required/>
-                            <span className='mb-2 font-weight-bold' style={isLength ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{pswdLenMsg}</span>
+                            <span className='mb-2 font-weight-bold' style={length ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{pswdLenMsg}</span>
                         </div>       
                         <div className="button"></div>
                         <div className="form-group input">
                             <Input autoComplete='off' onChange={(e)=>{setConfPassword(e.target.value)}} name='confPassword' value={confPassword} type='password' id='password' placeholder="Confirm Password" required/>
-                            <span className='mb-2 font-weight-bold' style={isMatch ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{pswdMsg}</span>
+                            <span className='mb-2 font-weight-bold' style={match ? {display: 'block', color: 'red', fontSize: '14px'} : {display: 'none'}}>{pswdMsg}</span>
                         </div>
                         <div className="button">
                             <Button type='submit' className='mt-2 button w-100 rounded-pill' style={{backgroundColor: '#DB3022'}}>Register</Button>

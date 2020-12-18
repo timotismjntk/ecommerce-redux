@@ -5,7 +5,7 @@ import {Button} from 'reactstrap'
 import '../assets/css/address.css';
 import addressAction from '../redux/actions/address'
 
-import AddressModal from './AddressModal.js'
+import AddressModal from './AddAddressModal.js'
 import ChangeAddress from './ChangeAddressModal'
 
 export default function Address(props) {
@@ -16,32 +16,26 @@ export default function Address(props) {
     const [openModal, setOpenModal] = useState(false)
     const [openChangeModal, setOpenChangeModal] = useState(false)
     const [show, setShow] = useState(false)
-
+    const [data, setData] = useState([])
     useEffect(()=>{
-        // alert(openModal)
-        dispatch(addressAction.getPrimaryAddress(token, 1))
-    }, [dispatch, token])
+        dispatch(addressAction.getAddress(token))
+    }, [])
 
     const addressState = useSelector(state=>state.address)
 
-    const {data, isLoading} = addressState
+    const {address, isLoading} = addressState
     useEffect(()=>{
-        if (isLoading) {
-            dispatch(addressAction.getPrimaryAddress(token, 1))
-        }
-    }, [dispatch, token, isLoading])
-    useEffect(()=>{
-        if(data.length > 0){
-            alert('true')
+        if(address.length > 0){
+            setData(address[0])
             setShow(true)
         }
-    }, [data])
+    }, [address])
     
     const btnHandler = () => {
         setOpenModal(true)
         // alert(openModal)
     }
-    const fullAddress = data.recipient_name + ', ' + data.city + ', ' + data.postal_code
+    const fullAddress = data.place + ', '  + data.address_name + ', ' + data.city + ', ' + data.postal_code
 
 
     return (
@@ -63,17 +57,21 @@ export default function Address(props) {
                     </Button>
                 </div>
                 
-            <div className='w-100 align-items-center d-flex justify-content-center'>
-                <div className="d-flex flex-column mt-5 address"> 
-                    <p className="recipientName font-weight-bold">{fullAddress}</p>
-                    <span className="recipientAddress">{data.address_name}</span>
-                    <div className='d-flex flex-start mt-2'>
-                        <Button onClick={() => {setOpenChangeModal(true)}}>
-                            Change address
-                        </Button>
+            {data && (
+                <div>
+                    <div className='w-100 align-items-center d-flex justify-content-center' style={show ? {display: 'none'} : {display : 'none'}}>
+                    <div className="d-flex flex-column mt-5 address"> 
+                        <p className="recipientName font-weight-bold">{data.recipient_name}</p>
+                        <span className="recipientAddress">{fullAddress}</span>
+                            <div className='d-flex flex-start mt-2'>
+                                <Button onClick={() => {setOpenChangeModal(true)}}>
+                                    Change address
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
             </div>
             <React.StrictMode>
                 <AddressModal isOpen={openModal} isClose={() => setOpenModal(false)}/>

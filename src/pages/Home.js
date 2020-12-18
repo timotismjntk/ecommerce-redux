@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import { Container } from 'reactstrap'
 // import {connect} from 'react-redux'
@@ -8,11 +9,21 @@ import PopularProduct from '../component/PopularProduct'
 import CategoryProduct from '../component/CategoryProduct'
 
 // import authAction from '../redux/actions/auth'
-
+import profileAction from '../redux/actions/profile'
 
 import '../assets/css/ecommerce.css';
 
 const Home = (props) => {
+
+  const token = useSelector(state=>state.auth.token)
+  const dispatch = useDispatch()
+  
+  useEffect(()=>{
+    if (token) {
+      dispatch(profileAction.getProfile(token))
+    }
+  },[token])
+
     return (
       <React.Fragment>
         <Navbar />
@@ -20,7 +31,7 @@ const Home = (props) => {
           <div className="slider-container images d-flex justify-content-between align-items-center position-relative">
             <div className="gambar position-relative">
                 <img src={require('../assets/images/1.png')} className="img1 rounded" alt="gambar"/>
-                <a href='/'><img src={require('../assets/images/left.png')} className="position-absolute arrow" alt="left"/></a>
+                <img src={require('../assets/images/left.png')} className="position-absolute arrow" alt="left"/>
             </div>
             <div className="gambar">
                 <img src={require('../assets/images/2.png')} className="img2 rounded" alt="gambar"/>
@@ -28,7 +39,7 @@ const Home = (props) => {
             </div>
             <div className="gambar position-relative">
                 <img src={require('../assets/images/3.png')} className="img3 rounded" alt="gambar"/>
-                <a href='/'><img src={require('../assets/images/right.png')} alt="right" className="position-absolute arrow1" /></a>
+                <img src={require('../assets/images/right.png')} alt="right" className="position-absolute arrow1" />
                 <span className="position-absolute caption1 font-weight-bold">Trends in 2020</span>
             </div>
             <div className="gambar">

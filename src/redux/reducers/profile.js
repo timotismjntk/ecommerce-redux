@@ -53,6 +53,12 @@ export default (state=initialState, action)=>{
         alertMsg: 'Profile updated',
         updated: true
       }
+    } case 'REMOVE_MESSAGE': {
+      return {
+        ...state,
+        isLoading: false,
+        updated: false
+      }
     }
     default : {
       return state

@@ -10,35 +10,49 @@ import '../assets/css/profile.css';
 import ModalResponse from './ModalResponse'
 
 export default function CustomerProfile(props) {
+
+    const {REACT_APP_BACKEND_URL} = process.env
+
     const dispatch = useDispatch()
     const profileState =  useSelector(state=>state.profile)
     const {data, alertMsg, updated, isLoading} = profileState
 
     const token = useSelector(state=>state.auth.token)
 
-    
-  useEffect(()=>{
-    // dispatch(profileAction.getProfile(token))
-    if (updated) {
-        dispatch(profileAction.getProfile(token))
-        setModalOpen(true)
-    }
-    if (isLoading) {
-        alert('true')
-        dispatch(profileAction.getProfile(token))
-    }
-  },[dispatch, token, updated, isLoading])
-
     const [dropdownOpen, setOpen] = useState(false);
 
-    const [userName, setName] = useState(data.name)
-    const [userEmail, setEmail] = useState(data.email)
-    const [phoneNumber, setPhone] = useState(data.phone_number)
-    const [Gender, setGender] = useState(data.gender)
-    const [userImage, setImage] = useState(data.profile_picture)
-    const [userDateOfBirth, setDateOfBirth] = useState(data.dateOfBirth)
+    const [userName, setName] = useState('')
+    const [userEmail, setEmail] = useState('')
+    const [phoneNumber, setPhone] = useState('')
+    const [Gender, setGender] = useState('')
+    const [userImage, setImage] = useState('')
+    const [userDateOfBirth, setDateOfBirth] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
-    const [myFile, setMyFile] = useState()
+
+    useEffect(()=>{
+        dispatch(profileAction.getProfile(token))
+    },[])
+
+    useEffect(() => {
+        if (data) {
+            setName(data.name)
+            setEmail(data.email)
+            setPhone(data.phone_number)
+            setGender(data.gender)
+            setImage(data.profile_picture)
+            setDateOfBirth(data.dateOfBirth)
+        }
+    })
+
+    useEffect(()=>{
+        if (updated) {
+            dispatch(profileAction.getProfile(token))
+            setModalOpen(true)
+            setTimeout(() =>{
+                dispatch(profileAction.removeMessage())
+            })
+        }
+    },[updated])
 
     const onSaveProfile=(e)=>{
         e.preventDefault();
@@ -60,9 +74,12 @@ export default function CustomerProfile(props) {
         const data = await http(token).patch(`manage/users`, form)
         console.log(data)
         if(data.status === 200) {
-            console.log(data)
-            alert(data.data.message)
+            // console.log(data)
             dispatch(profileAction.getProfile(token))
+            setModalOpen(true)
+            setTimeout(() =>{
+                dispatch(profileAction.removeMessage())
+            })
         }
     }
 
@@ -103,7 +120,7 @@ export default function CustomerProfile(props) {
                             <div className="d-flex align-items-center w-75">
                                 <span className="text-secondary col-5 text-right">Phone</span>
                                 <div className="col-9 w-100 d-flex flex-center">
-                                <Input onChange={(e) => {setPhone(e.target.files)}} className="input-number w-75" type="phone" name="phone_number" value={phoneNumber} placeholder="Phone Number" />
+                                <Input onChange={(e) => {setPhone(e.target.value)}} className="input-number w-75" type="phone" name="phone_number" value={phoneNumber} placeholder="Phone Number" />
                                 </div>
                             </div>
                             </div>
@@ -129,7 +146,7 @@ export default function CustomerProfile(props) {
                             <div className='d-flex align-items-center justify-content-between w-50'>
                                 <span className="ml-2 col-7 text-right text-secondary">Date of Birth</span>
                                 <div className="tanggal col-9 d-flex">
-                                    <Input onChange={(e)=>{setDateOfBirth(e.target.value)}} type="text" value={userDateOfBirth} className='normal' placeholder='Date Of Birth' />
+                                    <Input onChange={(e)=>{setDateOfBirth(e.target.value)}} type="text" value={userDateOfBirth} className='normal' placeholder='example: 10/10/2010' />
                                 </div>
                             </div>
                             </div>
@@ -141,20 +158,18 @@ export default function CustomerProfile(props) {
                             </div>
                         </Form>
                         <div className="line"></div>
-                        <div className="customer">
-                            <div className="pics d-flex flex-column align-items-center">                   
-                                <Col md={4} className='user'>
-                                    <Media className='picts'>
-                                        <Media top className='image-crop3'>
-                                            <Media src={userImage!==''?userImage : ''} className='rounded-circle profile-pic3' alt="profil" />
-                                        </Media>
-                                    </Media>     
-                                    <Media body className='ml-5 pl-3 w-100'>
-                                            <Label className="btn btn-outline-secondary rounded-pill">
-                                                <span>Select File</span>
-                                                    <Input onChange={uploadFile} style={{display: 'none'}} type='file' name='picture' accept='.jpg,.jpeg,.png' />
-                                            </Label>
-                                        </Media>      
+                        <div className="customer w-100 ml-5">
+                            <div className="pics d-flex flex-column align-items-center w-100">   
+                                <Col md={4}>
+                                    {userImage ? (
+                                        <div style={{width: "100px", height: "100px", backgroundImage: `url(${userImage})`, backgroundSize: "cover", display: "block", backgroundPosition: "center", borderRadius: "100px", BorderRadius: "100px"}} />
+                                    ) : (
+                                        <div style={{width: "100px", height: "100px", backgroundImage: `url(${`https://ui-avatars.com/api/?size=80&name=${userName}`})`, backgroundSize: "cover", display: "block", backgroundPosition: "center", borderRadius: "100px", BorderRadius: "100px"}}/>
+                                    )}     
+                                    <Label className="btn btn-outline-secondary rounded-pill mt-3">
+                                        <span>Select File</span>
+                                            <Input onChange={(e) => uploadFile(e)} style={{display: 'none'}} type='file' name='picture' accept='.jpg,.jpeg,.png' />
+                                    </Label>   
                                 </Col>
                             </div>
                         </div>   

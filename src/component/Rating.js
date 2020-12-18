@@ -8,9 +8,9 @@ export default function Rating(props) {
         <div>
             {[...Array(5)].map((el, i) => {
                 if(i+1 <= Math.round(props.number)){
-                    return (<img src={yellow} alt='yellow'/>)
+                    return (<img src={yellow} key={i.toString()} alt='yellow'/>)
                 }else {
-                    return (<img src={grey} alt='grey'/>)
+                    return (<img src={grey} key={i.toString()} alt='grey'/>)
                 }
             })} 
         </div>

@@ -44,3 +44,17 @@
     height: 10px;
     width: 100%;
 }
+
+.rating-bar .progress-bar2 {
+    height: 10px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.newProduct{
+    align-items: center;
+}
+
+.popularProduct{
+    align-items: center;
+}
