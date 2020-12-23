@@ -65,7 +65,7 @@ export default function Cart(props) {
                 <h5 className="category">Shipping Address</h5>
                 <div className="d-flex flex-column addressCheckout"> 
                     <h5 className="recipientName font-weight-bold">{addressData ? addressData.recipient_name : ''}</h5>
-                    <span className="recipientAddress">{addressData.length > 0 ? fullAddress : ''}</span>
+                    <span className="recipientAddress">{addressData ? fullAddress : ''}</span>
                     <div className='d-flex flex-start mt-3'>
                         <Button outline className="rounded" onClick={() => {setOpenModal(true)}}>
                             Choose Another Address
