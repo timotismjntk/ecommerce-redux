@@ -98,9 +98,7 @@ const initialState = {
             ...state,
             isLoading: false,
             alertMsg: 'Success',
-            // info:[],
-            isAdded: true,
-            quantity: 1
+            isSuccess: true,
         }
     }
     case 'PATCH_ADDRESS_PENDING': {

@@ -10,6 +10,7 @@ import CheckoutAddressModal from '../component/CheckoutAddressModal'
 import PaymentModal from '../component/PaymentModal'
 
 import checkoutAction from '../redux/actions/checkout'
+import addressAction from '../redux/actions/address'
 
 const {REACT_APP_BACKEND_URL} = process.env
 
@@ -23,6 +24,9 @@ export default function Cart(props) {
 
     useEffect(()=>{
         dispatch(checkoutAction.getCheckout(token))
+    }, [])
+    useEffect(()=>{
+        dispatch(addressAction.getAddress(token))
     }, [])
 
     const quantityState = useSelector(state=>state.checkout)
@@ -46,7 +50,9 @@ export default function Cart(props) {
     const fullAddress = addressData.place + ', ' + addressData.city + ', ' + addressData.postal_code
 
     const gotoPayment = () => {
-        setOpenModalPayment(true)
+        if (address.length > 0) {
+            setOpenModalPayment(true)
+        }
     }
 
     return (
@@ -58,8 +64,8 @@ export default function Cart(props) {
                 <div className="item-list d-flex flex-column">
                 <h5 className="category">Shipping Address</h5>
                 <div className="d-flex flex-column addressCheckout"> 
-                    <h5 className="recipientName font-weight-bold">{addressData.recipient_name}</h5>
-                    <span className="recipientAddress">{fullAddress}</span>
+                    <h5 className="recipientName font-weight-bold">{addressData ? addressData.recipient_name : ''}</h5>
+                    <span className="recipientAddress">{addressData.length > 0 ? fullAddress : ''}</span>
                     <div className='d-flex flex-start mt-3'>
                         <Button outline className="rounded" onClick={() => {setOpenModal(true)}}>
                             Choose Another Address
@@ -100,7 +106,7 @@ export default function Cart(props) {
                             <h5>Shopping Summary</h5>
                             <h4 style={{color: '#DB3022'}}>Rp. {totalPrice + delivery}</h4>
                         </div>
-                    <button onClick={gotoPayment} className="buy-btn d-block mt-3">Select Payment</button>
+                    {address.length > 0 ? <button onClick={gotoPayment} className="buy-btn d-block mt-3">Select Payment</button> : <button disabled={true} className="buy-btn d-block mt-3" style={{backgroundColor: 'grey'}}>Select Payment</button>}
                 </div>
             </div>
             <PaymentModal open={openModalPayment} close={() => setOpenModalPayment(false)} />

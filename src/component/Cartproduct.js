@@ -131,7 +131,7 @@ export default function Cart(props) {
                     <div className="someOne d-flex align-items-center position-relative" style={{right: '-50px' }}>
                         <img className="jas" style={{width: '70px', height: '69px', objectFit: 'contain'}} src={REACT_APP_BACKEND_URL + items.url} alt='images' />
                         <div className="namaBarang mt-3 ml-4">
-                            <p className="teks1">{items.name}</p>
+                            <p className="teks1">{items.name.length > 30 ? items.name.slice(0, 28) + '...' : items.name}</p>
                             {/* <p className="teks2">Zalora Cloth</p> */}
                         </div>
                     </div>

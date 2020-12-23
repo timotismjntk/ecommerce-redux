@@ -37,12 +37,12 @@ export default function CustomerProfile(props) {
         if (data) {
             setName(data.name)
             setEmail(data.email)
-            setPhone(data.phone_number)
             setGender(data.gender)
+            setPhone(data.phone_number)
             setImage(data.profile_picture)
             setDateOfBirth(data.dateOfBirth)
         }
-    })
+    }, [data])
 
     useEffect(()=>{
         if (updated) {
@@ -61,11 +61,11 @@ export default function CustomerProfile(props) {
             email: userEmail,
             phone_number: phoneNumber,
             gender: Gender,
-            // profile_picture: userImage,
             dateOfBirth: userDateOfBirth,
         }
         dispatch(profileAction.updateProfile(token, info))
     }
+    console.log(Gender)
     
     const uploadFile = async (e) => {
         e.preventDefault();
@@ -133,7 +133,7 @@ export default function CustomerProfile(props) {
                                     {['Male', 'Female'].map((item, index)=>{
                                         return(
                                             <Label className={index===0?'ml-2':'ml-5'}>
-                                                <Input onChange={()=>{setGender(item)}} name="Gender" type="radio" checked={item===Gender} value={item} />
+                                                <Input onChange={()=>{setGender(item)}} onClick={() => setGender(item)} name="Gender" type="radio" checked={item===Gender} value={item} />
                                                 <span>{item}</span>
                                             </Label>
                                         )
@@ -141,7 +141,6 @@ export default function CustomerProfile(props) {
                                 </div>
                             </div>
                             </div>
-
                             <div className="form-group row align-items-center w-100">
                             <div className='d-flex align-items-center justify-content-between w-50'>
                                 <span className="ml-2 col-7 text-right text-secondary">Date of Birth</span>
@@ -153,7 +152,11 @@ export default function CustomerProfile(props) {
 
                             <div className="save form-group mt-4 row align-items-center justify-content-center w-100">
                             <div className="col-3 ml-1 d-flex">
-                                <button onClick={onSaveProfile} className="btn-primary rounded-pill w-100">Save</button>
+                                {userName && userEmail && phoneNumber && userDateOfBirth && Gender  ? (
+                                    <button onClick={onSaveProfile} className="btn-primary rounded-pill w-100">Save</button>
+                                ) : (
+                                    <button disabled={true} style={{backgroundColor: 'grey'}} className="btn-primary rounded-pill w-100">Save</button>
+                                )}
                             </div>
                             </div>
                         </Form>

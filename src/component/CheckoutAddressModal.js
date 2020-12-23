@@ -69,7 +69,7 @@ export default function CheckoutAddressModal(props) {
                                 </Button>
                             </div>
                         
-                            {data && (
+                            {address.length > 0 && (
                                 <div>
                                     <div className='w-100 align-items-center d-flex justify-content-center' style={show ? {display: 'none'} : {display : 'none'}}>
                                     <div className="d-flex flex-column mt-5 address"> 

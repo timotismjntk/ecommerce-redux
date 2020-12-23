@@ -32,6 +32,7 @@ export default function AddressModal(props) {
 
     const addAddress = (e) => {
         // alert(e)
+            e.preventDefault()
             let data = {
             place,
             recipient_name,
@@ -42,8 +43,17 @@ export default function AddressModal(props) {
             isPrimary
             }
             dispatch(addressAction.createAddress(token, data))
-            setModalOpen(isClose)
     }
+    const addressState = useSelector(state=>state.address)
+
+    const {isSuccess, isLoading} = addressState
+
+    useEffect(() => {
+        if (isSuccess) {
+            setModalOpen(isClose)
+        }
+    }, [isSuccess])
+
     const closeModal = () => {
         setModalOpen(isClose)
     }
