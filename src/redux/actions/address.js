@@ -23,14 +23,14 @@ export default {
   },
   createAddress: (token, data)=> {
     return {
-      type: "POST_CART",
+      type: "POST_ADDRESS",
       payload: http(token).post("users/address", qs.stringify(data))
     };
   },
   deleteAddress: (token, id)=> {
     // alert(qs.stringify(id))
     return {
-      type: "DELETE_CART",
+      type: "DELETE_ADDRESS",
       payload: http(token).delete(`users/address/${id}`)
     };
   },

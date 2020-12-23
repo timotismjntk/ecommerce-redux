@@ -16,7 +16,7 @@ export default {
   },
   clearMessage: ()=> {
     return {
-      type: 'CLEAR_MESSAGE',
-    }
+      type: "CLEAR_MESSAGE",
+    };
   }
 };
